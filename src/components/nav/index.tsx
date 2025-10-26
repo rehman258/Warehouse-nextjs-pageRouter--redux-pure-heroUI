@@ -2,6 +2,14 @@ import React from "react";
 
 export default function Navigation() {
   return (
-    <div>{"nav"}</div>
+    <nav>
+      <p>{"Main Navigation"}</p>
+      <ul>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+      </ul>
+    </nav>
   );
 }
