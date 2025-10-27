@@ -7,15 +7,15 @@ import {
   DropdownMenu,
   DropdownItem ,
 } from "@heroui/react";
-export default function Notifications() {
+export default function UserMenu() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button isIconOnly className="bg-transparent">
+        <Button isIconOnly className="bg-transparent rounded-full">
           <Image
             alt="notification icon"
             height={20}
-            src={"/icons/notification-bell.svg"}
+            src={"/icons/user.svg"}
             width={20}
           />
         </Button>
