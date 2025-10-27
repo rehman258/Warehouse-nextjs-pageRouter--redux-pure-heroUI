@@ -15,10 +15,10 @@ export default function MonthlyActions() {
       data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
     }],
     options: {
-      chart: {
-        type: "bar",
-        height: 350
-      },
+      // chart: {
+      //   type: "bar",
+      //   height: 350
+      // },
       // plotOptions: {
       //   bar: {
       //     horizontal: false,
