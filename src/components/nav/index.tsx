@@ -25,7 +25,7 @@ export default function Navigation() {
     },
   ];
   return (
-    <nav className="h-[calc(100%-56px)] bg-[#fafafa]">
+    <nav className="h-[calc(100%-56px)] ">
       <ul className="flex flex-col h-[100%]">
         {
           navLinks.map((navItem)=>(

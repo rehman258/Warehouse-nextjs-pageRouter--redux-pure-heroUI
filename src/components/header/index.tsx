@@ -40,7 +40,7 @@ export default function Header() {
               width={15}
             />
           }
-          type="email"
+          type="text"
         />
         <Notifications/>
         <UserMenu/>

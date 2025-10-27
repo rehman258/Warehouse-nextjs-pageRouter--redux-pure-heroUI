@@ -6,7 +6,7 @@ import ReacentActivities from "@/components/recentActivities";
 import WarehouseCapacity from "@/components/warehouseCapacity";
 export default function Dashboard() {
   return (
-    <div className="p-6 flex flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <section className="">
         <ul className="flex gap-5 justify-start flex-wrap">
           <li>

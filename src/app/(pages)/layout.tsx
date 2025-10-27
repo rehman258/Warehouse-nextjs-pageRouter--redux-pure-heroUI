@@ -7,7 +7,7 @@ export default function DasboardLayout({ children }:{children:React.ReactNode}) 
       <Sidebar/>
       <div className="w-[82.5%]">
         <Header/>
-        <main className="">
+        <main className="p-6">
           {children}
         </main>
       </div>
