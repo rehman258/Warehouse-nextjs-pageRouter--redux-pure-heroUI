@@ -2,7 +2,20 @@
 
 import React from "react";
 import Image from "next/image";
-import { Input,Select, SelectItem, Button } from "@heroui/react";
+import { 
+  Input,
+  Select, 
+  SelectItem, 
+  Button,
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell, 
+  Pagination,
+
+} from "@heroui/react";
 
 export default function Invertory() {
   const testList = [
@@ -23,7 +36,7 @@ export default function Invertory() {
   ];
   return (
     <div>
-      <div className="invertory-header bg-white p-5 rounded-md flex justify-between">
+      <div className="invertory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
         <div className="w-[50%]">
           <Input
             className="max-w-[500px]"
@@ -78,6 +91,77 @@ export default function Invertory() {
           </Button>
         </div>
       </div>
+      <Table 
+        bottomContent={
+          <div className="flex justify-center mt-6">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="primary"
+              page={1}
+              total={10}
+            // onChange={(page) => setPage(page)}
+            />
+          </div>
+        }
+        className=""
+      >
+        <TableHeader>
+          <TableColumn>
+            {"Sku"}
+          </TableColumn>
+          <TableColumn>
+            {"Product Name"}
+          </TableColumn>
+          <TableColumn>
+            {"Category"}
+          </TableColumn>
+          <TableColumn>
+            {"Stock"}
+          </TableColumn>
+          <TableColumn>
+            {"Location"}
+          </TableColumn>
+          <TableColumn>
+            {"Price"}
+          </TableColumn>
+          <TableColumn>
+            {"Status"}
+          </TableColumn>
+          <TableColumn>
+            {"Actions"}
+          </TableColumn>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+            <TableCell>
+              {"aaa"}
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 }

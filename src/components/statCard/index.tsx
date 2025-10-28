@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function StatDard() {
   return (
     <div 
-      className="border rounded-lg flex w-[204px] p-4 flex-col gap-6"
+      className="shadow rounded-lg flex w-[204px] p-4 flex-col gap-6 bg-white"
     >
       <div className="stat-card--header flex justify-between w-[100%]">
         <h5 className="stat-card--title label-medium">

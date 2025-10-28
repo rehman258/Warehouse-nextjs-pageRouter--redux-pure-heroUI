@@ -3,7 +3,7 @@ import React from "react";
 export default function ComponentWrapper({ children, className }:
   {children:React.ReactNode, className?:string}) {
   return (
-    <div className={`self-start gap-6 flex flex-col p-6 border rounded-md ${className}`}>
+    <div className={`self-start gap-6 flex flex-col p-6 shadow bg-white rounded-md ${className}`}>
       <div>
         <h4 className="component-title body-medium">
           {"Inventory Flow"}
