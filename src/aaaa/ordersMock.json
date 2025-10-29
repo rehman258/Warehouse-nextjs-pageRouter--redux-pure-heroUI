@@ -1,0 +1,64 @@
+{
+  "orders": [
+    {
+      "orderId": "PO-2024-001",
+      "type": "inBound",
+      "supplier": "TechCorp Solutions",
+      "createdDate": "2024-01-15",
+      "expectedDate": "2024-01-25",
+      "status": "delivered",
+      "priority": "high",
+      "progress": 100,
+      "items": 3,
+      "totalValue": 12500.00
+    },
+    {
+      "orderId": "PO-2024-002",
+      "type": "outBound",
+      "supplier": "FurniCo Ltd",
+      "createdDate": "2024-01-18",
+      "expectedDate": "2024-01-28",
+      "status": "inTransit",
+      "priority": "medium",
+      "progress": 75,
+      "items": 5,
+      "totalValue": 8750.00
+    },
+    {
+      "orderId": "PO-2024-003",
+      "type": "outBound",
+      "supplier": "Office Supplies Inc",
+      "createdDate": "2024-01-20",
+      "expectedDate": "2024-01-30",
+      "status": "pending",
+      "priority": "low",
+      "progress": 0,
+      "items": 12,
+      "totalValue": 3200.00
+    },
+    {
+      "orderId": "PO-2024-004",
+      "type": "inBound",
+      "supplier": "ElectroWorld",
+      "createdDate": "2024-01-19",
+      "expectedDate": "2024-01-29",
+      "status": "approved",
+      "priority": "high",
+      "progress": 25,
+      "items": 8,
+      "totalValue": 15600.00
+    },
+    {
+      "orderId": "PO-2024-005",
+      "type": "outBound",
+      "supplier": "BagWorld Enterprises",
+      "createdDate": "2024-01-17",
+      "expectedDate": "2024-01-27",
+      "status": "partial",
+      "priority": "medium",
+      "progress": 50,
+      "items": 6,
+      "totalValue": 5400.00
+    }
+  ]
+}

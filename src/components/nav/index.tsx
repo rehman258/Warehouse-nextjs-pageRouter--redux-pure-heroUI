@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 export default function Navigation() {
+  const pathName = usePathname();
   const navLinks = [
     {
       title: "Dashboard",
@@ -25,12 +29,15 @@ export default function Navigation() {
     },
   ];
   return (
-    <nav className="h-[calc(100%-56px)] ">
+    <nav className="h-[calc(100%-56px)]">
       <ul className="flex flex-col h-[100%]">
         {
           navLinks.map((navItem)=>(
             <li key={navItem.title}>
-              <Link className="body-regular flex p-2 px-4 gap-2" href={`/${navItem.path}`}>
+              <Link className={`body-regular hover:bg-neutral-100 flex p-3 px-4 gap-2 border-s-4 
+              ${pathName === `/${navItem.path}` ? "border-neutral-400" : " border-white" }`}
+              href={`/${navItem.path}`}
+              >
                 <Image 
                   alt="sidebar link logo"
                   height={20}
@@ -43,7 +50,7 @@ export default function Navigation() {
           ))
         }
         <li className="mt-auto">
-          <Link className="body-regular  flex p-2 gap-2" href={"/settings"}>
+          <Link className="body-regular hover:bg-neutral-100   flex p-3 gap-2" href={"/settings"}>
             <Image 
               alt="sidebar link logo"
               height={20}

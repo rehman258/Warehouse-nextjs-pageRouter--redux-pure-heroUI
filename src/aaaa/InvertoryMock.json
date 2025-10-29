@@ -1,0 +1,64 @@
+{
+  "inventory": [
+    {
+      "id":1,
+      "sku": "SKU-001",
+      "productName": "Wireless Headphones",
+      "category": "Electronics",
+      "stock": 45,
+      "location": "A1-B2",
+      "price": 99.99,
+      "status": "inStock"
+    },
+    {
+      "id":2,
+      "sku": "SKU-002",
+      "productName": "Running Shoes",
+      "category": "Sports",
+      "stock": 8,
+      "location": "C3-D1",
+      "price": 79.99,
+      "status": "lowStock"
+    },
+    {
+      "id":3,
+      "sku": "SKU-003",
+      "productName": "Office Chair",
+      "category": "Furniture",
+      "stock": 0,
+      "location": "E2-F1",
+      "price": 249.99,
+      "status": "outOfStock"
+    },
+    {
+      "id":4,
+      "sku": "SKU-004",
+      "productName": "Laptop Stand",
+      "category": "Electronics",
+      "stock": 23,
+      "location": "A2-B1",
+      "price": 49.99,
+      "status": "inStock"
+    },
+    {
+      "id":5,
+      "sku": "SKU-005",
+      "productName": "Coffee Mug",
+      "category": "Home & Garden",
+      "stock": 67,
+      "location": "B1-C2",
+      "price": 12.99,
+      "status": "inStock"
+    },
+    {
+      "id":6,
+      "sku": "SKU-006",
+      "productName": "Smartphone Case",
+      "category": "Electronics",
+      "stock": 12,
+      "location": "A1-B3",
+      "price": 24.99,
+      "status": "lowStock"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { 
   Input,
@@ -14,8 +14,11 @@ import {
   TableRow,
   TableCell, 
   Pagination,
+  Tabs,
+  Tab,
 
 } from "@heroui/react";
+import InvertoryJson from "@/aaaa/InvertoryMock.json";
 
 export default function Invertory() {
   const testList = [
@@ -34,6 +37,11 @@ export default function Invertory() {
     { key: "otter", label: "Otter" },
     { key: "crocodile", label: "Crocodile" },
   ];
+  const [invertoryList,setInvertoryList] = useState({});
+
+  useEffect(()=>{
+    setInvertoryList(InvertoryJson);
+  },[]);
   return (
     <div>
       <div className="invertory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
@@ -77,6 +85,8 @@ export default function Invertory() {
             }
           </Select>
           <Button 
+            className="font-medium"
+            color="primary"
             size="sm"
             startContent={
               <Image
@@ -93,7 +103,12 @@ export default function Invertory() {
       </div>
       <Table 
         bottomContent={
-          <div className="flex justify-center mt-6">
+          <div className="flex gap-6 justify-end mt-6">
+            <Tabs className="">
+              <Tab className="" title="1-5" value="1-5" />
+              <Tab className="" title="1-10" value="1-10" />
+              <Tab className="" title="1-20" value="1-20" />
+            </Tabs>
             <Pagination
               isCompact
               showControls
@@ -103,63 +118,111 @@ export default function Invertory() {
               total={10}
             // onChange={(page) => setPage(page)}
             />
+            
           </div>
         }
         className=""
       >
         <TableHeader>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Sku"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Product Name"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Category"}
           </TableColumn>
-          <TableColumn>
-            {"Stock"}
+          <TableColumn className="max-w-[120px]">
+            {"Current Stock"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Location"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Price"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="max-w-[120px]">
             {"Status"}
           </TableColumn>
-          <TableColumn>
+          <TableColumn className="text-center">
             {"Actions"}
           </TableColumn>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-            <TableCell>
-              {"aaa"}
-            </TableCell>
-          </TableRow>
+          {
+            InvertoryJson.inventory.map((invertoryItem)=>(
+              <TableRow key={invertoryItem.id}>
+                <TableCell>
+                  {invertoryItem.sku}
+                </TableCell>
+                <TableCell>
+                  {invertoryItem.productName}
+                </TableCell>
+                <TableCell>
+                  {invertoryItem.category}
+                </TableCell>
+                <TableCell>
+                  {invertoryItem.stock}
+                </TableCell>
+                <TableCell>
+                  {invertoryItem.location}
+                </TableCell>
+                <TableCell>
+                  {invertoryItem.price}
+                </TableCell>
+                <TableCell>
+                  <span className=
+                    {` p-1 px-2 gap-1 font-bold text-[11px] flex rounded-lg justify-self-start
+                        ${invertoryItem.status === "inStock" ? "bg-green-100 text-green-800" : 
+                invertoryItem.status === "lowStock" ? "bg-yellow-100 text-yellow-800" :
+                  "bg-red-500 text-white"
+              }  
+                  `}>
+                    <Image
+                      alt="stock status icon"
+                      height={15}
+                      src={`/icons/${invertoryItem.status}.svg`}
+                      width={15}
+                    />
+                    {
+                      invertoryItem.status === "inStock" ? "in stock" : 
+                        invertoryItem.status === "lowStock" ? 
+                          "low stock" : "out of stock"
+                    }
+                  </span>
+                </TableCell>
+                <TableCell className="text-center">
+                  <Button isIconOnly className="bg-transparent">
+                    <Image
+                      alt="table action icon"
+                      height={22}
+                      src={"/icons/view.svg"}
+                      width={22}
+                    />
+                  </Button>
+                  <Button isIconOnly className="bg-transparent">
+                    <Image
+                      alt="table action icon"
+                      height={22}
+                      src={"/icons/edit.svg"}
+                      width={22}
+                    />
+                  </Button>
+                  <Button isIconOnly className="bg-transparent">
+                    <Image
+                      alt="table action icon"
+                      height={22}
+                      src={"/icons/delete.svg"}
+                      width={22}
+                    />
+                  </Button>
+                </TableCell>
+              </TableRow>
+
+            ))
+          }
+          
         </TableBody>
       </Table>
     </div>
