@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-export default function StatDard() {
+export default function StatCard() {
   return (
     <div 
       className="shadow rounded-lg flex w-[204px] p-4 flex-col gap-6 bg-white"
@@ -13,7 +13,7 @@ export default function StatDard() {
         <Image
           alt="stat card icon"
           height={16}
-          src={"/icons/total-invertory.svg"}
+          src={"/icons/total-inventory.svg"}
           width={16}
         />
       </div>

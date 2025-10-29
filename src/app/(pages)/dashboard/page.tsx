@@ -1,5 +1,5 @@
 import React from "react";
-import StatDard from "@/components/statCard";
+import StatCard from "@/components/statCard";
 import MonthlyActions from "@/components/monthlyActions";
 import StockInterests from "@/components/stockInterests";
 import ReacentActivities from "@/components/recentActivities";
@@ -10,19 +10,19 @@ export default function Dashboard() {
       <section className="">
         <ul className="flex gap-5 justify-start flex-wrap">
           <li>
-            <StatDard/>
+            <StatCard/>
           </li>
           <li>
-            <StatDard/>
+            <StatCard/>
           </li>
           <li>
-            <StatDard/>
+            <StatCard/>
           </li>
           <li>
-            <StatDard/>
+            <StatCard/>
           </li>
           <li>
-            <StatDard/>
+            <StatCard/>
           </li>
         </ul>
       </section>

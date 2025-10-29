@@ -18,9 +18,9 @@ import {
   Tab,
 
 } from "@heroui/react";
-import InvertoryJson from "@/aaaa/InvertoryMock.json";
+import inventoryJson from "@/aaaa/InventoryMock.json";
 
-export default function Invertory() {
+export default function inventory() {
   const testList = [
     { key: "all", label: "All categories" },
     { key: "cat", label: "Cat" },
@@ -37,14 +37,14 @@ export default function Invertory() {
     { key: "otter", label: "Otter" },
     { key: "crocodile", label: "Crocodile" },
   ];
-  const [invertoryList,setInvertoryList] = useState({});
+  const [inventoryList,setinventoryList] = useState({});
 
   useEffect(()=>{
-    setInvertoryList(InvertoryJson);
+    setinventoryList(inventoryJson);
   },[]);
   return (
     <div>
-      <div className="invertory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
+      <div className="inventory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
         <div className="w-[50%]">
           <Input
             className="max-w-[500px]"
@@ -151,43 +151,43 @@ export default function Invertory() {
         </TableHeader>
         <TableBody>
           {
-            InvertoryJson.inventory.map((invertoryItem)=>(
-              <TableRow key={invertoryItem.id}>
+            inventoryJson.inventory.map((inventoryItem)=>(
+              <TableRow key={inventoryItem.id}>
                 <TableCell>
-                  {invertoryItem.sku}
+                  {inventoryItem.sku}
                 </TableCell>
                 <TableCell>
-                  {invertoryItem.productName}
+                  {inventoryItem.productName}
                 </TableCell>
                 <TableCell>
-                  {invertoryItem.category}
+                  {inventoryItem.category}
                 </TableCell>
                 <TableCell>
-                  {invertoryItem.stock}
+                  {inventoryItem.stock}
                 </TableCell>
                 <TableCell>
-                  {invertoryItem.location}
+                  {inventoryItem.location}
                 </TableCell>
                 <TableCell>
-                  {invertoryItem.price}
+                  {inventoryItem.price}
                 </TableCell>
                 <TableCell>
                   <span className=
                     {` p-1 px-2 gap-1 font-bold text-[11px] flex rounded-lg justify-self-start
-                        ${invertoryItem.status === "inStock" ? "bg-green-100 text-green-800" : 
-                invertoryItem.status === "lowStock" ? "bg-yellow-100 text-yellow-800" :
+                        ${inventoryItem.status === "inStock" ? "bg-green-100 text-green-800" : 
+                inventoryItem.status === "lowStock" ? "bg-yellow-100 text-yellow-800" :
                   "bg-red-500 text-white"
               }  
                   `}>
                     <Image
                       alt="stock status icon"
                       height={15}
-                      src={`/icons/${invertoryItem.status}.svg`}
+                      src={`/icons/${inventoryItem.status}.svg`}
                       width={15}
                     />
                     {
-                      invertoryItem.status === "inStock" ? "in stock" : 
-                        invertoryItem.status === "lowStock" ? 
+                      inventoryItem.status === "inStock" ? "in stock" : 
+                        inventoryItem.status === "lowStock" ? 
                           "low stock" : "out of stock"
                     }
                   </span>

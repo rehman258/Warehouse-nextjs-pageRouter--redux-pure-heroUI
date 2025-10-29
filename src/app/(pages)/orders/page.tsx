@@ -41,7 +41,7 @@ export default function Orders() {
   ];
   return (
     <div>
-      <div className="invertory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
+      <div className="inventory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
         <div className="w-[50%]">
           <Input
             className="max-w-[500px]"
@@ -185,17 +185,22 @@ export default function Orders() {
                   </span>
                 </TableCell>
                 <TableCell>
-                  <span className={`
+                  <div className="flex items-center">
+
+                    <span className={`
                     p-1 rounded-xl px-3 text-[12px] font-medium
-                      ${order.priority === "high" ? "bg-red-500 text-white": 
+                    ${order.priority === "high" ? "bg-red-500 text-white": 
                 order.priority==="medium" ? "bg-yellow-400 text-yellow-900" : " bg-default"} `}>
-                    {order.priority}
-                  </span>
+                      {order.priority}
+                    </span>
+                  </div>
                 </TableCell>
-                <TableCell className="flex gap-2 items-center">
-                  <Progress aria-label="Loading..." 
-                    className="w-[50px]" color="secondary" size="sm" value={order.progress} />
-                  <span className="w-[30px]">{order.progress}%</span>
+                <TableCell>
+                  <div className="flex gap-2 items-center">
+                    <Progress aria-label="Loading..." 
+                      className="w-[50px]" color="secondary" size="sm" value={order.progress} />
+                    <span className="w-[30px]">{order.progress}%</span>
+                  </div>
                 </TableCell>
                 <TableCell>
                   {order.items}

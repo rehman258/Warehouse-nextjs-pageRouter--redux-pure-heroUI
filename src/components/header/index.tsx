@@ -9,8 +9,16 @@ import {
 import Notifications from "../notifications";
 import UserMenu from "../userMenu";
 export default function Header() {
+  // const [headerIsShown, setHeaderIsShown] = useState(true);
+  // document.addEventListener("scroll",()=>{
+  //   console.log(window.scrollY);
+  //   let prevScroll = 0;
+  //   setHeaderIsShown(prevScroll > window.scrollY); 
+  //   prevScroll = window.scrollY;
+  // });
+  // ${headerIsShown ? "opacity-[1]" :"opacity-[0]"}`}
   return (
-    <header className="relative flex px-3 py-4 border-b h-[65px]">
+    <header className="relative flex px-3 py-4 sticky top-[0px] h-[65px] bg-white shadow z-2">
       <div className="w-[50%] flex justify-between">
         <Button
           isIconOnly

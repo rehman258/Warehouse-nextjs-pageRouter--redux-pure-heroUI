@@ -13,9 +13,9 @@ export default function Navigation() {
       icon:"dashboard"
     },
     {
-      title: "Intertory",
-      path: "invertory",
-      icon:"invertory"
+      title: "inventory",
+      path: "inventory",
+      icon:"inventory"
     },
     {
       title: "Orders",
@@ -50,7 +50,7 @@ export default function Navigation() {
           ))
         }
         <li className="mt-auto">
-          <Link className="body-regular hover:bg-neutral-100   flex p-3 gap-2" href={"/settings"}>
+          <Link className="body-regular hover:bg-neutral-100 flex p-3 py-4 gap-2" href={"/settings"}>
             <Image 
               alt="sidebar link logo"
               height={20}
