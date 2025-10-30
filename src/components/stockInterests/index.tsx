@@ -4,16 +4,18 @@ import React from "react";
 import dynamic from "next/dynamic";
 import ComponentWrapper from "../componentWrapper";
 const Chart = dynamic(() => import("react-apexcharts"),{ ssr: false });
-export default function StockInterests() {
+import { IStockInterests } from "@/types/reusable";
+
+export default function StockInterests({ series, labels }:IStockInterests) {
   const [state, setState] = React.useState({
           
-    series: [44, 55, 13, 43, 22],
+    series,
     options: {
       // chart: {
       //   width: 380,
       //   type: "pie",
       // },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      labels,
       responsive: [{
         breakpoint: 480,
         options: {

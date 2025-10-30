@@ -11,7 +11,8 @@ export default function UserMenu() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button isIconOnly className="bg-transparent rounded-full">
+        <Button className="bg-transparent rounded-full shadow p-3 px-7">
+          <p className="font-medium text-[14px]">{"John Doe"}</p>
           <Image
             alt="notification icon"
             height={20}

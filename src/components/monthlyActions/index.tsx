@@ -3,18 +3,13 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import ComponentWrapper from "../componentWrapper";
-
 const Chart = dynamic(() => import("react-apexcharts"),{ ssr: false });
-export default function MonthlyActions() {
+import { IMonthlyActions } from "@/types/reusable";
+
+export default function MonthlyActions({ series, months }:IMonthlyActions) {
   const [state, setState] = React.useState({
           
-    series: [{
-      name: "Inbound",
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-      name: "Outbound",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }],
+    series: series,
     options: {
       // chart: {
       //   type: "bar",
@@ -37,7 +32,7 @@ export default function MonthlyActions() {
       //   colors: ["transparent"]
       // },
       xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+        categories: months,
       },
       // yaxis: {
       //   title: {
