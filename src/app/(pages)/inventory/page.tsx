@@ -20,7 +20,7 @@ import {
 } from "@heroui/react";
 import inventoryJson from "@/aaaa/InventoryMock.json";
 
-export default function inventory() {
+export default function Inventory() {
   const testList = [
     { key: "all", label: "All categories" },
     { key: "cat", label: "Cat" },
@@ -37,11 +37,6 @@ export default function inventory() {
     { key: "otter", label: "Otter" },
     { key: "crocodile", label: "Crocodile" },
   ];
-  const [inventoryList,setinventoryList] = useState({});
-
-  useEffect(()=>{
-    setinventoryList(inventoryJson);
-  },[]);
   return (
     <div>
       <div className="inventory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">

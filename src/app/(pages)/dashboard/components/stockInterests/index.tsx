@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import ComponentWrapper from "../componentWrapper";
 const Chart = dynamic(() => import("react-apexcharts"),{ ssr: false });
-import { IStockInterests } from "@/types/reusable";
+import { IStockInterests } from "@/types/models";
 
 export default function StockInterests({ series, labels }:IStockInterests) {
   const [state, setState] = React.useState({

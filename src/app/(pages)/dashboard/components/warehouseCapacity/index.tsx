@@ -3,7 +3,7 @@
 import React from "react";
 import ComponentWrapper from "../componentWrapper";
 import { Progress } from "@heroui/react";
-import { WarehouseCapacityType, IWarehouseCapacityItem } from "@/types/reusable";
+import { WarehouseCapacityType, IWarehouseCapacityItem } from "@/types/models";
 export default function WarehouseCapacity(warehouseCapacity:WarehouseCapacityType) {
   return (
     <ComponentWrapper className="w-[40%]">

@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import ComponentWrapper from "../componentWrapper";
 const Chart = dynamic(() => import("react-apexcharts"),{ ssr: false });
-import { IMonthlyActions } from "@/types/reusable";
+import { IMonthlyActions } from "@/types/models";
 
 export default function MonthlyActions({ series, months }:IMonthlyActions) {
   const [state, setState] = React.useState({

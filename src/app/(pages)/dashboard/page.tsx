@@ -1,9 +1,9 @@
 import React from "react";
 import StatCard from "@/components/statCard";
-import MonthlyActions from "@/components/monthlyActions";
-import StockInterests from "@/components/stockInterests";
-import ReacentActivities from "@/components/recentActivities";
-import WarehouseCapacity from "@/components/warehouseCapacity";
+import MonthlyActions from "./components/monthlyActions";
+import StockInterests from "./components/stockInterests";
+import ReacentActivities from "./components/recentActivities";
+import WarehouseCapacity from "./components/warehouseCapacity";
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-6">

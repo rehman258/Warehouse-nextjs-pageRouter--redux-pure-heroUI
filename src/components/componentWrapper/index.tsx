@@ -1,5 +1,10 @@
 import React from "react";
-import { IComponentWrapper } from "@/types/components";
+interface IComponentWrapper {
+  title?:string;
+  desc?:string;
+  children:React.JSX.Element;
+  className?:string;
+}
 
 export default function ComponentWrapper({ children, className, title, desc }:IComponentWrapper) {
   return (

@@ -2,7 +2,7 @@
 
 import React from "react";
 import ComponentWrapper from "../componentWrapper";
-import { RecentActivitiesType, IRecentActivitiesItem } from "@/types/reusable";
+import { RecentActivitiesType, IRecentActivitiesItem } from "@/types/models";
 export default function RecentActivities( recentActivities:RecentActivitiesType) {
   return (
     <ComponentWrapper className="w-[60%] ">
