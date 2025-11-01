@@ -1,16 +1,16 @@
-import { IMonthlyActions } from "./monthlyActions";
-import { IStockInterests } from "./stockInterests";
-import { RecentActivities, IRecentActivitiesItem } from "./recentActivities";
-import { WarehouseCapacity, IWarehouseCapacityItem } from "./warehouseCapacity";
-import { IStatCard } from "./statCard";
-export {
-  // Interface Types
-  IMonthlyActions,
-  IStockInterests,
-  IRecentActivitiesItem,
-  IWarehouseCapacityItem,
-  IStatCard,
-  // Onion Types 
-  RecentActivities as RecentActivitiesType,
-  WarehouseCapacity as WarehouseCapacityType,
-};
+// import { IMonthlyActionsProps } from "./monthlyActions";
+// import { IStockInterestsProps } from "./stockInterests";
+// import { RecentActivitiesListProps, IRecentActivitiesItemProps } from "./recentActivities";
+// import { WarehouseCapacityListProps, IWarehouseCapacityItemProps } from "./warehouseCapacity";
+// import { IStatCardProps } from "./statCard";
+// export {
+//   // Interface Types
+//   IMonthlyActionsProps,
+//   IStockInterestsProps,
+//   IRecentActivitiesItemProps,
+//   IWarehouseCapacityItemProps,
+//   IStatCardProps,
+//   // Onion Types 
+//   RecentActivitiesListProps,
+//   WarehouseCapacityListProps
+// };

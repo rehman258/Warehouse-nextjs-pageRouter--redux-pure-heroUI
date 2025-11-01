@@ -2,9 +2,9 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import ComponentWrapper from "../componentWrapper";
+import ComponentWrapper from "@/components/componentWrapper";
 const Chart = dynamic(() => import("react-apexcharts"),{ ssr: false });
-import { IStockInterests } from "@/types/models";
+import { IStockInterests } from "@/types/domain/stockInterests";
 
 export default function StockInterests({ series, labels }:IStockInterests) {
   const [state, setState] = React.useState({

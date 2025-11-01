@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import ComponentWrapper from "../componentWrapper";
-import { RecentActivitiesType, IRecentActivitiesItem } from "@/types/models";
-export default function RecentActivities( recentActivities:RecentActivitiesType) {
+import ComponentWrapper from "@/components/componentWrapper";
+import { RecentActivitiesList, IRecentActivitiesItem } from "@/types/domain/recentActivities";
+export default function RecentActivities( recentActivities:RecentActivitiesList) {
   return (
     <ComponentWrapper className="w-[60%] ">
       <ul>

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { IStatCard } from "@/types/models";
+import { IStatCard } from "@/types/domain/statCard";
 
 export default function StatCard({ title,desc,count,icon }:IStatCard) {
   return (

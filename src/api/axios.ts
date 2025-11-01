@@ -41,10 +41,10 @@ class Axios {
    */
   public async get<T=unknown>(
     url:string,
-    config:AxiosRequestConfig
-  ):Promise<T>{
-    const response = await this.instance.get<T>(url,config);
-    return response.data;
+    config?:AxiosRequestConfig
+  ):Promise<AxiosResponse<T>>{
+    const response = await this.instance.get<T>(`${url}.json`,config);
+    return response;
   };
   /**
    * 
@@ -55,9 +55,9 @@ class Axios {
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
-  ):Promise<T>{
-    const response = await this.instance.post<T>(url,data,config);
-    return response.data;
+  ):Promise<AxiosResponse<T>>{
+    const response = await this.instance.post<T>(`${url}.json`,data,config);
+    return response;
   };
   /**
    * 
@@ -68,9 +68,9 @@ class Axios {
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
-  ):Promise<T>{
-    const response = await this.instance.put<T>(url,data,config);
-    return response.data;
+  ):Promise<AxiosResponse<T>>{
+    const response = await this.instance.put<T>(`${url}.json`,data,config);
+    return response;
   };
   /**
    * 
@@ -81,9 +81,9 @@ class Axios {
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
-  ):Promise<T>{
-    const response = await this.instance.patch<T>(url,data,config);
-    return response.data;
+  ):Promise<AxiosResponse<T>>{
+    const response = await this.instance.patch<T>(`${url}.json`,data,config);
+    return response;
   };
   /**
    * 
@@ -93,9 +93,9 @@ class Axios {
   public async delete<T=unknown>(
     url:string,
     config:AxiosRequestConfig
-  ):Promise<T>{
-    const response = await this.instance.delete<T>(url,config);
-    return response.data;
+  ):Promise<AxiosResponse<T>>{
+    const response = await this.instance.delete<T>(`${url}.json`,config);
+    return response;
   };
 
 }
