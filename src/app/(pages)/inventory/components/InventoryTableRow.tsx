@@ -9,7 +9,7 @@ import { IInventoryItem } from "@/types/domain/inventory";
 
 export default function InventoryTableRow({ inventoryItem }:{inventoryItem:IInventoryItem}) {
   return (
-    <TableRow key={inventoryItem.id}>
+    <TableRow >
       <TableCell>{"Content"}</TableCell>
       <TableCell>{"Content"}</TableCell>
       <TableCell>{"Content"}</TableCell>

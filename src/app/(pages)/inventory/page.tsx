@@ -99,7 +99,7 @@ export default function Inventory() {
         </div>
       </div>
       {
-        list &&
+        list &&  
       <InventoryTable inventoryList= {list}/>
       }
     </div>
