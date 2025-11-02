@@ -1,5 +1,5 @@
 export type stockStatuses = "inStock" | "lowStock" | "outOfStock";
-export type IInventoryList = IInventoryItem[];
+export type InventoryList = IInventoryItem[];
 export interface IInventoryItem{
   id:number|string;
   sku:string;

@@ -10,14 +10,14 @@ import {
 } from "@heroui/react";
 import InventoryTable from "./components/InventoryTable";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
-import { IInventoryList } from "@/types/domain/inventory";
+import { InventoryList } from "@/types/domain/inventory";
 import InventoryServices from "@/api/endpoints/inventory";
 
 export default function Inventory() {
-  const [list,setList] = useState<IInventoryList | undefined>();
+  const [list,setList] = useState<InventoryList | undefined>();
   useEffect(()=>{
     (async()=>{
-      const res = await InventoryServices.getInventoryList<IInventoryList>("inventoryList");
+      const res = await InventoryServices.getInventoryList<InventoryList>();
       console.log(res);
       setList(res);
     })();

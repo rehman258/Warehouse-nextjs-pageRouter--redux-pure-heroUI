@@ -39,7 +39,7 @@ class Axios {
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
-  public async get<T=unknown>(
+  protected async get<T=unknown>(
     url:string,
     config?:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
@@ -51,7 +51,7 @@ class Axios {
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
-  public async post<T=unknown>(
+  protected async post<T=unknown>(
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
@@ -64,7 +64,7 @@ class Axios {
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
-  public async put<T=unknown>(
+  protected async put<T=unknown>(
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
@@ -77,7 +77,7 @@ class Axios {
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
-  public async patch<T=unknown>(
+  protected async patch<T=unknown>(
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
@@ -90,7 +90,7 @@ class Axios {
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
-  public async delete<T=unknown>(
+  protected async delete<T=unknown>(
     url:string,
     config:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
