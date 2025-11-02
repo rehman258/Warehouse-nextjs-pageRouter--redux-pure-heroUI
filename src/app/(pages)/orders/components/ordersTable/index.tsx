@@ -16,7 +16,6 @@ import {
   Progress,
 
 } from "@heroui/react";
-import orders from "@/aaaa/ordersMock.json";
 import { OrdersList } from "@/types/domain/orders";
 export default function Orders({ list }:{list:OrdersList}) {
   return (
