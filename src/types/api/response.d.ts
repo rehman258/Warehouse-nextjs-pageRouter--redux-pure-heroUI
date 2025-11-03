@@ -1,5 +1,12 @@
 export interface IResponse<T> {
   data:T;
-  error?:object;
-  errorMessage?:object;
+  status:number;
+}
+
+export interface IError{
+  response:{
+    error?:object;
+    errorMessage?:object;
+    status:number;
+  }
 }

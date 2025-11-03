@@ -5,7 +5,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
 } from "axios";
-
+import { IError } from "@/types/api/response";
 class Axios {
   private instance: AxiosInstance;
   constructor(){
@@ -43,21 +43,40 @@ class Axios {
     url:string,
     config?:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
-    const response = await this.instance.get<T>(`${url}.json`,config);
-    return response;
+    try{
+      const response = await this.instance.get<T>(`${url}.json`,config);
+      return response;
+    }catch(err:unknown){
+      throw this.handleError(err as IError);
+    }
   };
   /**
    * 
    * @param {url} string endpoint url
    * @param {config} config optional axios config
    */
+
+  private handleError(error: IError) {
+    if (error.response?.status === 404) {
+      throw new Error("Resource not found");
+    }
+    if (error.response?.status === 500) {
+      throw new Error("Server error");
+    }
+    throw error;
+  }
+
   protected async post<T=unknown>(
     url:string,
     config:AxiosRequestConfig,
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
-    const response = await this.instance.post<T>(`${url}.json`,data,config);
-    return response;
+    try{
+      const response = await this.instance.post<T>(`${url}.json`,data,config);
+      return response;
+    }catch(err:unknown){
+      throw this.handleError(err as IError);
+    }
   };
   /**
    * 
@@ -69,8 +88,12 @@ class Axios {
     config:AxiosRequestConfig,
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
-    const response = await this.instance.put<T>(`${url}.json`,data,config);
-    return response;
+    try{
+      const response = await this.instance.put<T>(`${url}.json`,data,config);
+      return response;
+    }catch(err:unknown){
+      throw this.handleError(err as IError);
+    }
   };
   /**
    * 
@@ -82,8 +105,12 @@ class Axios {
     config:AxiosRequestConfig,
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
-    const response = await this.instance.patch<T>(`${url}.json`,data,config);
-    return response;
+    try{
+      const response = await this.instance.patch<T>(`${url}.json`,data,config);
+      return response;
+    }catch(err:unknown){
+      throw this.handleError(err as IError);
+    }
   };
   /**
    * 
@@ -94,8 +121,12 @@ class Axios {
     url:string,
     config:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
-    const response = await this.instance.delete<T>(`${url}.json`,config);
-    return response;
+    try{
+      const response = await this.instance.delete<T>(`${url}.json`,config);
+      return response;
+    }catch(err:unknown){
+      throw this.handleError(err as IError);
+    }
   };
 
 }

@@ -1,4 +1,3 @@
-// import { IInventoryList } from '@/types/domain/inventory';
 import Axios from "../axios";
 class InventoryServices extends Axios {
 

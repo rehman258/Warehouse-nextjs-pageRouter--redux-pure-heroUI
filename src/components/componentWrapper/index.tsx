@@ -1,16 +1,16 @@
 import React from "react";
 interface IComponentWrapper {
   title?:string;
-  desc?:string;
+  subTitle?:string;
   children:React.JSX.Element;
   className?:string;
 }
 
-export default function ComponentWrapper({ children, className, title, desc }:IComponentWrapper) {
+export default function ComponentWrapper({ children, className, title, subTitle }:IComponentWrapper) {
   return (
     <div className={`self-start gap-6 flex flex-col p-6 shadow bg-white rounded-md ${className}`}>
       {
-        (title || desc) &&
+        (title || subTitle) &&
       <div>
         {
           title &&
@@ -19,9 +19,9 @@ export default function ComponentWrapper({ children, className, title, desc }:IC
           </h4>
         }
         {
-          desc && 
+          subTitle && 
           <p className="component-subtitle body-small text-neutral-400">
-            {desc}
+            {subTitle}
           </p>
         }
       </div>

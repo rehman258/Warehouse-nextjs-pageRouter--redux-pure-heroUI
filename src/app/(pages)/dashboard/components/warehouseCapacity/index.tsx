@@ -1,20 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useEffect,useState } from "react";
 import ComponentWrapper from "@/components/componentWrapper";
 import { Progress } from "@heroui/react";
 import { WarehouseCapacityList, IWarehouseCapacityItem } from "@/types/domain/warehouseCapacity";
-export default function WarehouseCapacity(warehouseCapacity:WarehouseCapacityList) {
+import CapacityServices from "@/api/endpoints/capacity"; 
+export default function WarehouseCapacity() {
+  const [capacityList, setCapacityList] = useState<WarehouseCapacityList | undefined>();
+  useEffect(()=>{
+    (async()=>{
+      const res = await CapacityServices.getCapacityList<WarehouseCapacityList>();
+      setCapacityList(res);
+    })();    
+  },[]);
   return (
-    <ComponentWrapper className="w-[40%]">
+    <ComponentWrapper className="w-[40%]"
+      subTitle={"Current utilization"}
+      title={"Warehouse Capacity"}
+    >
       <ul className="flex flex-col gap-[20px]">
         {
-          warehouseCapacity.length &&
-          warehouseCapacity.map((capacityItem:IWarehouseCapacityItem<string>)=>(
-            <li key={capacityItem.id}>
-              <Progress showValueLabel color="default" label={capacityItem.zone} value={100}/>
-            </li>
-          ))
+          capacityList &&
+          capacityList?.map((capacityItem:IWarehouseCapacityItem)=>{
+            const percentage = capacityItem.percentage;
+            return (
+              <li key={capacityItem.id}>
+                <Progress showValueLabel color={`${percentage >= 55 ? "success" : percentage >= 30 ? "warning" 
+                  :"danger"}`} 
+                label={capacityItem.zone} 
+                value={capacityItem.percentage}/>
+              </li>
+            );
+          })
         }
       </ul>
     </ComponentWrapper>

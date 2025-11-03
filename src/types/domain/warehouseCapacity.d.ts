@@ -1,7 +1,10 @@
 export type WarehouseCapacityList = IWarehouseCapacity[];
 
-export interface IWarehouseCapacityItem<T> {
+export interface IWarehouseCapacityItem {
   id: string|number;
-  zone:T;
-  percentage:number|string;
+  zone:string;
+  used:number;
+  color:string;
+  total:number;
+  percentage:number;
 };
