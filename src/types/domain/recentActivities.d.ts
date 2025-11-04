@@ -2,10 +2,14 @@ export type RecentActivitiesList = IRecentActivitiesItem[];
 
 export interface IRecentActivitiesItem{
   id:string|number;
+  category:string;
+  color:string;
+  icon?:string;
+  description:string;
+  timeAgo:string;
+  timeStamp:string;
   title:string;
-  subTitle:string;
   status: activityTypes;
-  date:string;
 }
 
 type activityTypes = "completed" | "pending" | "warning"; 
