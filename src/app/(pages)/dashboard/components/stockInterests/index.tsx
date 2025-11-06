@@ -66,9 +66,10 @@ export default function StockInterests() {
   },[]);
   return (
     <ComponentWrapper
-      className={"w-[45%]"}
+      className={"w-[40%]"}
     >
-      <Chart class="flex justify-center" options={state.options} series={state.series} type="pie" width={380} />
+      <Chart className="flex justify-center" 
+        options={state.options} series={state.series} type="pie" width={380} />
     </ComponentWrapper>
   );
 }

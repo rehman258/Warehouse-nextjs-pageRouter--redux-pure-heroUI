@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
+import { Listbox, ListItem } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 export default function Navigation() {
@@ -30,12 +31,13 @@ export default function Navigation() {
   ];
   return (
     <nav className="h-[calc(100%-56px)]">
-      <ul className="flex flex-col h-[100%]">
+      <ul className="flex flex-col h-[100%] px-1 gap-[1]">
         {
           navLinks.map((navItem)=>(
             <li key={navItem.title}>
-              <Link className={`body-regular hover:bg-neutral-100 flex p-3 px-4 gap-2 border-s-4 
-              ${pathName === `/${navItem.path}` ? "border-neutral-400" : " border-white" }`}
+              <Link className={`body-regular text-white hover:bg-neutral-600 bg-opacity-5
+              flex p-3 px-4 gap-2 rounded-sm
+              `}
               href={`/${navItem.path}`}
               >
                 <Image 

@@ -1,6 +1,6 @@
 import React from "react";
 import StatCard from "@/components/statCard";
-import MonthlyActions from "./components/monthlyActions";
+import MonthlyActionsFlow from "./components/monthlyActionsFlow";
 import StockInterests from "./components/stockInterests";
 import ReacentActivities from "./components/recentActivities";
 import WarehouseCapacity from "./components/warehouseCapacity";
@@ -27,7 +27,7 @@ export default function Dashboard() {
         </ul>
       </section>
       <section className="flex gap-6">
-        <MonthlyActions/>
+        <MonthlyActionsFlow/>
         <StockInterests/>
       </section>
       <section className="flex gap-6">
