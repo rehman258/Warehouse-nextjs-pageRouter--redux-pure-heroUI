@@ -1,20 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
-// import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 // import { Listbox, ListItem } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@heroui/react";
+interface INavigationItem {
+      title: string,
+      icon: string,
+      path?:string,
+      children?: {
+          title: string,
+          path: string,
+          icon: string,
+          description: string,
+      }[]
+}
+
 export default function Navigation() {
+  const router = useRouter();
   // const pathName = usePathname();
   // first design is about version 9 
+
   const [listOpen,setListOpen] = useState<string | undefined>(undefined);
-  const openMenuHandler = (currentList:string)=>{
-    setListOpen((prevState)=>{
-      return prevState===currentList ? undefined : currentList;
-    });
-  };
-  const navLinks = [
+  // const openMenuHandler = (currentList:string)=>{
+    
+  // };
+  const navLinks:INavigationItem[] = [
     {
       title: "Dashboard",
       path: "dashboard",
@@ -47,7 +60,6 @@ export default function Navigation() {
           path: "stock-operations",
           icon: "stock-operations",
           description: "Adjustment, transfer, cycle count",
-          features: ["adjustment", "transfer", "cycle count"]
         }
       ]
     },
@@ -66,7 +78,6 @@ export default function Navigation() {
           path: "inbound-outbound",
           icon: "inbound-outbound",
           description: "Track inbound and outbound shipments",
-          features: ["tracking", "history filter"]
         },
         {
           title: "Returns & Refunds",
@@ -145,7 +156,6 @@ export default function Navigation() {
           path: "purchase-orders",
           icon: "basket",
           description: "Create and track purchase orders",
-          features: ["calendar filter", "search history"]
         }
       ]
     },
@@ -164,7 +174,6 @@ export default function Navigation() {
           path: "orders",
           icon: "order-list",
           description: "View customer order history",
-          features: ["calendar filter", "search history"]
         }
       ]
     },
@@ -198,6 +207,17 @@ export default function Navigation() {
       ]
     }
   ];
+
+  const navigationItemHandler = (navItem:INavigationItem)=>{
+    if (navItem.children){
+      setListOpen((prevState)=>{
+        return prevState===navItem.title ? undefined : navItem.title;
+      });
+      return;
+    } 
+    
+    router.push("/"+navItem.path);
+  };
   return (
     <nav className="h-[calc(100%-56px)]">
       <ul className="flex flex-col h-[100%] px-1 gap-[1] overflow-y-scroll 
@@ -206,12 +226,13 @@ export default function Navigation() {
         [&::-webkit-scrollbar-thumb]:bg-green-200
       ">
         {
-          navLinks.map((navItem)=>(
-            <li key={navItem.title} onClick={()=>openMenuHandler(navItem.title)}>
-              <Link className={`max-h-[50px] body-regular text-white hover:bg-neutral-600 bg-opacity-5
+          navLinks.map((navItem:INavigationItem)=>(
+            <li key={navItem.title}>
+              <Button className={`max-h-[50px] w-[100%] 
+              body-regular text-white hover:bg-neutral-600 bg-opacity-5
               flex p-3 px-4 gap-2 rounded-sm justify-between
               `}
-              href={`${navItem.children ? "" : "/"+navItem.path}`}
+              onPress={()=>navigationItemHandler(navItem)}
               >
                 <div className="flex gap-2">
                   <Image 
@@ -232,7 +253,7 @@ export default function Navigation() {
                     width={18}
                   />
                 }
-              </Link>
+              </Button>
               <ul className={`overflow-hidden transition-all duration-200 ms-[25px] 
               border-s border-neutral-500 ps-[5px]`} 
               style={{
