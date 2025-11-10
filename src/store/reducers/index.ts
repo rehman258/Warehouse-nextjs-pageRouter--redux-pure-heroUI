@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
-import { testReducer } from "./testReducer";
+import { categoriesReducer } from "./categories";
+import { statusesReducer } from "./statuses";
 
 const rootReducer = combineReducers({
-  testReducer,
+  categoriesReducer,
+  statusesReducer
 });
 export default rootReducer;

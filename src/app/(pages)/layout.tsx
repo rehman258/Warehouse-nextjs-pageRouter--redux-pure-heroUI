@@ -1,7 +1,13 @@
+"use client";
+
 import React from "react";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
+import useCommonServices from "@/hooks/useCommonServices";
+
 export default function DasboardLayout({ children }:{children:React.ReactNode}) {
+  useCommonServices();
+
   return (
     <>
       <Sidebar/>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 // import { Listbox, ListItem } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function Navigation() {
       children: [
         {
           title: "Items & Stock",
-          path: "items-stock",
+          path: "inventory/items",
           icon: "cube",
           description: "Manage inventory items and stock levels"
         },
@@ -211,7 +211,7 @@ export default function Navigation() {
               <Link className={`max-h-[50px] body-regular text-white hover:bg-neutral-600 bg-opacity-5
               flex p-3 px-4 gap-2 rounded-sm justify-between
               `}
-              href={`${navItem.children ? "" : navItem.path}`}
+              href={`${navItem.children ? "" : "/"+navItem.path}`}
               >
                 <div className="flex gap-2">
                   <Image 
@@ -246,7 +246,7 @@ export default function Navigation() {
                       <Link  
                         className={`body-regular text-white hover:bg-neutral-600 bg-opacity-5
                         flex p-3 px-4 gap-2 rounded-sm justify-between`}
-                        href={`/${navItem.path}`}
+                        href={`/${childItem.path}`}
                       >
                         <div className="flex gap-2 text-sm">
                           <Image 

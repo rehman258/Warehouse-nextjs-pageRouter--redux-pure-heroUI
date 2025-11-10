@@ -8,12 +8,16 @@ import {
   SelectItem, 
   Button,
 } from "@heroui/react";
-import InventoryTable from "./components/InventoryTable";
+import InventoryTable from "../components/InventoryTable";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
 import { InventoryList } from "@/types/domain/inventory";
 import InventoryServices from "@/api/endpoints/inventory";
+import { connect, ConnectedProps } from "react-redux";
 
-export default function Inventory() {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function Items({ categoriesReducer }:PropsFromRedux) {
+  console.log(categoriesReducer);
   const [list,setList] = useState<InventoryList | undefined>();
   useEffect(()=>{
     (async()=>{
@@ -63,7 +67,7 @@ export default function Inventory() {
           />
         </div>
         <div className="w-[50%] flex justify-end gap-4">
-          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} size="sm">
+          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} selectionMode="multiple" size="sm">
             {
               testList.map((listItem)=>(
                 <SelectItem key={listItem.key}>
@@ -72,7 +76,7 @@ export default function Inventory() {
               ))
             }
           </Select>
-          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} size="sm">
+          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} selectionMode="multiple" size="sm">
             {
               testList.map((listItem)=>(
                 <SelectItem key={listItem.key}>
@@ -105,3 +109,13 @@ export default function Inventory() {
     </div>
   );
 }
+
+const mapStateToProps = (state:unknown)=>{
+  return state;
+};
+
+const mapDispatchToProps = {
+
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connect(mapStateToProps,mapDispatchToProps)(Items);
