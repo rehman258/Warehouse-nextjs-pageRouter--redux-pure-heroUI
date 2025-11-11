@@ -12,9 +12,10 @@ import {
   TableRow,
   TableCell
 } from "@heroui/react";
+
 import { IInventoryList, IInventoryItem } from "@/types/domain/inventory";
 export default function InventoryTable({ inventoryList }:{inventoryList:IInventoryList}) {
-  console.log(inventoryList);
+
   return (
     <Table 
       bottomContent={

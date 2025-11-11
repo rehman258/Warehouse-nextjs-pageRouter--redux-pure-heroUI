@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import React, { useEffect, useState, dy } from "react";
 import Image from "next/image";
 import { 
   Input,
-  Select, 
-  SelectItem, 
   Button,
 } from "@heroui/react";
+const Select = dynamic(() => import("react-select"), {
+  ssr: false,
+});
+
 import InventoryTable from "../components/InventoryTable";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
 import { InventoryList } from "@/types/domain/inventory";
@@ -22,26 +25,25 @@ function Items({ categoriesReducer }:PropsFromRedux) {
   useEffect(()=>{
     (async()=>{
       const res = await InventoryServices.getInventoryList<InventoryList>();
-      console.log(res);
       setList(res);
     })();
   },[]);
 
   const testList = [
-    { key: "all", label: "All categories" },
-    { key: "cat", label: "Cat" },
-    { key: "dog", label: "Dog" },
-    { key: "elephant", label: "Elephant" },
-    { key: "lion", label: "Lion" },
-    { key: "tiger", label: "Tiger" },
-    { key: "giraffe", label: "Giraffe" },
-    { key: "dolphin", label: "Dolphin" },
-    { key: "penguin", label: "Penguin" },
-    { key: "zebra", label: "Zebra" },
-    { key: "shark", label: "Shark" },
-    { key: "whale", label: "Whale" },
-    { key: "otter", label: "Otter" },
-    { key: "crocodile", label: "Crocodile" },
+    { value: "all", label: "All categories" },
+    { value: "cat", label: "Cat" },
+    { value: "dog", label: "Dog" },
+    { value: "elephant", label: "Elephant" },
+    { value: "lion", label: "Lion" },
+    { value: "tiger", label: "Tiger" },
+    { value: "giraffe", label: "Giraffe" },
+    { value: "dolphin", label: "Dolphin" },
+    { value: "penguin", label: "Penguin" },
+    { value: "zebra", label: "Zebra" },
+    { value: "shark", label: "Shark" },
+    { value: "whale", label: "Whale" },
+    { value: "otter", label: "Otter" },
+    { value: "crocodile", label: "Crocodile" },
   ];
   return (
     <div>
@@ -67,24 +69,20 @@ function Items({ categoriesReducer }:PropsFromRedux) {
           />
         </div>
         <div className="w-[50%] flex justify-end gap-4">
-          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} selectionMode="multiple" size="sm">
-            {
-              testList.map((listItem)=>(
-                <SelectItem key={listItem.key}>
-                  {listItem.label}
-                </SelectItem>
-              ))
-            }
-          </Select>
-          <Select className="max-w-[150px]" defaultSelectedKeys={["all"]} selectionMode="multiple" size="sm">
-            {
-              testList.map((listItem)=>(
-                <SelectItem key={listItem.key}>
-                  {listItem.label}
-                </SelectItem>
-              ))
-            }
-          </Select>
+          <Select 
+            // className="max-w-[150px]" 
+            isMulti
+            options={testList}
+            onMenuClose={() => {}}
+            onMenuOpen={() => {}} 
+          />
+          <Select 
+            // className="max-w-[150px]" 
+            isMulti
+            options={testList}
+            onMenuClose={() => {}}
+            onMenuOpen={() => {}} 
+          />
           <Button 
             className="font-medium"
             color="primary"

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { Listbox, ListItem } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
@@ -20,13 +19,9 @@ interface INavigationItem {
 
 export default function Navigation() {
   const router = useRouter();
-  // const pathName = usePathname();
-  // first design is about version 9 
 
   const [listOpen,setListOpen] = useState<string | undefined>(undefined);
-  // const openMenuHandler = (currentList:string)=>{
-    
-  // };
+ 
   const navLinks:INavigationItem[] = [
     {
       title: "Dashboard",

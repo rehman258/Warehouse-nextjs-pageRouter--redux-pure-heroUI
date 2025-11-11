@@ -49,11 +49,9 @@ export default function StockInterests() {
 });
   useEffect(()=>{
     (async()=>{
-      const res = await StockInterestsServices.getStockInterests<StockInterestsList>();
-      console.log(res);
+      const res = await StockInterestsServices.getStockInterests<StockInterestsList>(); 
       const labels = res?.map((interestItem) => interestItem.category);
       const series = res?.map((interestItem) => interestItem.percentage);
-      console.log(labels);
       setState({
         ...state,
         series,
