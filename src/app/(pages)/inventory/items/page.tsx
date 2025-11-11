@@ -1,26 +1,25 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import React, { useEffect, useState, dy } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { 
   Input,
   Button,
 } from "@heroui/react";
-const Select = dynamic(() => import("react-select"), {
-  ssr: false,
-});
-
+import CustomReactSelect from "@/components/customReactSelect";
 import InventoryTable from "../components/InventoryTable";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
 import { InventoryList } from "@/types/domain/inventory";
 import InventoryServices from "@/api/endpoints/inventory";
 import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "@/store";
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = ConnectedProps<typeof connector> & { 
+  params: Promise<{ id: string }> 
+};
 
 function Items({ categoriesReducer }:PropsFromRedux) {
-  console.log(categoriesReducer);
+  console.log(categoriesReducer.categories.length);
   const [list,setList] = useState<InventoryList | undefined>();
   useEffect(()=>{
     (async()=>{
@@ -29,22 +28,6 @@ function Items({ categoriesReducer }:PropsFromRedux) {
     })();
   },[]);
 
-  const testList = [
-    { value: "all", label: "All categories" },
-    { value: "cat", label: "Cat" },
-    { value: "dog", label: "Dog" },
-    { value: "elephant", label: "Elephant" },
-    { value: "lion", label: "Lion" },
-    { value: "tiger", label: "Tiger" },
-    { value: "giraffe", label: "Giraffe" },
-    { value: "dolphin", label: "Dolphin" },
-    { value: "penguin", label: "Penguin" },
-    { value: "zebra", label: "Zebra" },
-    { value: "shark", label: "Shark" },
-    { value: "whale", label: "Whale" },
-    { value: "otter", label: "Otter" },
-    { value: "crocodile", label: "Crocodile" },
-  ];
   return (
     <div>
       <div className="inventory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
@@ -69,20 +52,11 @@ function Items({ categoriesReducer }:PropsFromRedux) {
           />
         </div>
         <div className="w-[50%] flex justify-end gap-4">
-          <Select 
-            // className="max-w-[150px]" 
-            isMulti
-            options={testList}
-            onMenuClose={() => {}}
-            onMenuOpen={() => {}} 
-          />
-          <Select 
-            // className="max-w-[150px]" 
-            isMulti
-            options={testList}
-            onMenuClose={() => {}}
-            onMenuOpen={() => {}} 
-          />
+          {
+            categoriesReducer.categories?.length && 
+          <CustomReactSelect options={categoriesReducer.categories}/>
+          }
+          <CustomReactSelect/>
           <Button 
             className="font-medium"
             color="primary"
@@ -107,9 +81,10 @@ function Items({ categoriesReducer }:PropsFromRedux) {
     </div>
   );
 }
-
-const mapStateToProps = (state:unknown)=>{
-  return state;
+const mapStateToProps = (state: RootState) => {
+  return {
+    categoriesReducer: state.categoriesReducer,
+  };
 };
 
 const mapDispatchToProps = {
