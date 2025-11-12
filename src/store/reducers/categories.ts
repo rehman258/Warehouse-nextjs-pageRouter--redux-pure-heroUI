@@ -5,7 +5,7 @@ const defaultState:{
 } = {
   categories:[],
 };
-export type CategoryRootType = ReturnType<typeof categoriesReducer>;
+
 export function categoriesReducer(state=defaultState,{ type,payload }:{type:string,payload:CategoryType} ){
   switch(type){
     case LOAD_CATEGORIES_TYPE:

@@ -12,14 +12,16 @@ import InventoryTable from "../components/InventoryTable";
 import { InventoryList } from "@/types/domain/inventory";
 import InventoryServices from "@/api/endpoints/inventory";
 import { connect, ConnectedProps } from "react-redux";
+import { ICategoryItem } from "@/types/domain/categories";
+import { IStatusItem } from "@/types/domain/statuses";
 import { RootState } from "@/store";
 
 type PropsFromRedux = ConnectedProps<typeof connector> & { 
   params: Promise<{ id: string }> 
 };
 
-function Items({ categoriesReducer }:PropsFromRedux) {
-  console.log(categoriesReducer.categories.length);
+function Items({ categoriesReducer, statusesReducer }:PropsFromRedux) {
+  console.log(statusesReducer);
   const [list,setList] = useState<InventoryList | undefined>();
   useEffect(()=>{
     (async()=>{
@@ -54,9 +56,22 @@ function Items({ categoriesReducer }:PropsFromRedux) {
         <div className="w-[50%] flex justify-end gap-4">
           {
             categoriesReducer.categories?.length && 
-          <CustomReactSelect options={categoriesReducer.categories}/>
+          <CustomReactSelect<ICategoryItem> 
+            getOptionLabel={(option:ICategoryItem) => option.name}
+            getOptionValue={(option:ICategoryItem) => option.code}
+            options={categoriesReducer.categories}
+            placeholder="Select Categories"
+          />
           }
-          <CustomReactSelect/>
+          {
+            statusesReducer.statuses?.length && 
+            <CustomReactSelect<IStatusItem> 
+              getOptionLabel={(option:IStatusItem) => option.name}
+              getOptionValue={(option:IStatusItem) => option.code}
+              options={statusesReducer.statuses}
+              placeholder="Select Status"
+            />
+          }
           <Button 
             className="font-medium"
             color="primary"
@@ -84,6 +99,7 @@ function Items({ categoriesReducer }:PropsFromRedux) {
 const mapStateToProps = (state: RootState) => {
   return {
     categoriesReducer: state.categoriesReducer,
+    statusesReducer: state.statusesReducer,
   };
 };
 
