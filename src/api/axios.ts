@@ -10,15 +10,15 @@ class Axios {
   private instance: AxiosInstance;
   constructor(){
     this.instance = axios.create({
-      baseURL: "https://warehouse-d9e26-default-rtdb.firebaseio.com/" as const,
+      baseURL: "http://localhost:5000/api" as const,
       headers: {} as Record<string,string>,
     });
     this.instance.interceptors.request.use(
       (config:InternalAxiosRequestConfig)=>{
         // token will be added here
         config.headers.Authorization = "token";
-        config.headers["Accepted-language"] = "en";
-        config.headers["Device-type"] = "WEB";
+        // config.headers["Accepted-language"] = "en";
+        // config.headers["Device-type"] = "WEB";
         return config;
       },
       (error:AxiosError)=>{
@@ -44,7 +44,7 @@ class Axios {
     config?:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
     try{
-      const response = await this.instance.get<T>(`${url}.json`,config);
+      const response = await this.instance.get<T>(`${url}`,config);
       return response;
     }catch(err:unknown){
       throw this.handleError(err as IError);
@@ -72,7 +72,7 @@ class Axios {
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
     try{
-      const response = await this.instance.post<T>(`${url}.json`,data,config);
+      const response = await this.instance.post<T>(`${url}`,data,config);
       return response;
     }catch(err:unknown){
       throw this.handleError(err as IError);
@@ -89,7 +89,7 @@ class Axios {
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
     try{
-      const response = await this.instance.put<T>(`${url}.json`,data,config);
+      const response = await this.instance.put<T>(`${url}`,data,config);
       return response;
     }catch(err:unknown){
       throw this.handleError(err as IError);
@@ -106,7 +106,7 @@ class Axios {
     data?:unknown,
   ):Promise<AxiosResponse<T>>{
     try{
-      const response = await this.instance.patch<T>(`${url}.json`,data,config);
+      const response = await this.instance.patch<T>(`${url}`,data,config);
       return response;
     }catch(err:unknown){
       throw this.handleError(err as IError);
@@ -122,7 +122,7 @@ class Axios {
     config:AxiosRequestConfig
   ):Promise<AxiosResponse<T>>{
     try{
-      const response = await this.instance.delete<T>(`${url}.json`,config);
+      const response = await this.instance.delete<T>(`${url}`,config);
       return response;
     }catch(err:unknown){
       throw this.handleError(err as IError);

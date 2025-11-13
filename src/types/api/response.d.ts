@@ -1,6 +1,6 @@
 export interface IResponse<T> {
   data:T;
-  status:number;
+  status:number | boolean | string;
 }
 
 export interface IError{

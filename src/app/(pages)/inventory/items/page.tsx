@@ -9,9 +9,9 @@ import {
 import CustomReactSelect from "@/components/customReactSelect";
 import InventoryTable from "../components/InventoryTable";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
-import { InventoryList } from "@/types/domain/inventory";
 import InventoryServices from "@/api/endpoints/inventory";
 import { connect, ConnectedProps } from "react-redux";
+import { IInventoryListType,IInventoryItem, IPagination } from "@/types/domain/inventory";
 import { ICategoryItem } from "@/types/domain/categories";
 import { IStatusItem } from "@/types/domain/statuses";
 import { RootState } from "@/store";
@@ -20,15 +20,32 @@ type PropsFromRedux = ConnectedProps<typeof connector> & {
   params: Promise<{ id: string }> 
 };
 
-function Items({ categoriesReducer, statusesReducer }:PropsFromRedux) {
-  console.log(statusesReducer);
-  const [list,setList] = useState<InventoryList | undefined>();
+function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
+
+  const [list,setList] = useState<IInventoryItem[] | undefined>();
+  const [pagination,setPagination] = useState<IPagination>({} as IPagination);
+  const [page,setPage] = useState<number>(1);
+  const [pageSize,setPageSize] = useState<number | unknown>(5);
   useEffect(()=>{
     (async()=>{
-      const res = await InventoryServices.getInventoryList<InventoryList>();
-      setList(res);
+      const res:IInventoryListType = await InventoryServices.getInventoryList<IInventoryListType>({
+        page,
+        itemsPerPage:pageSize,
+      });
+      console.log(res);
+      setPagination(res.pagination);
+      setList(res.data);
     })();
-  },[]);
+  },[page, pageSize]);
+
+  const paginationHandler=(val:number)=>{
+    setPage(val);
+  };
+  
+  const pageSizeHandler = (val:unknown)=>{
+    console.log(val, "-===");
+    setPageSize(val);
+  };
 
   return (
     <div>
@@ -72,7 +89,7 @@ function Items({ categoriesReducer, statusesReducer }:PropsFromRedux) {
               placeholder="Select Status"
             />
           }
-          <Button 
+          <Button
             className="font-medium"
             color="primary"
             size="sm"
@@ -90,8 +107,11 @@ function Items({ categoriesReducer, statusesReducer }:PropsFromRedux) {
         </div>
       </div>
       {
-        list &&  
-      <InventoryTable inventoryList= {list}/>
+        list?.length &&  
+      <InventoryTable inventoryList= {list} 
+        pageSizeHandler={pageSizeHandler} 
+        pagination={pagination} 
+        paginationHandler={paginationHandler}/>
       }
     </div>
   );
@@ -107,4 +127,4 @@ const mapDispatchToProps = {
 
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connect(mapStateToProps,mapDispatchToProps)(Items);
+export default connect(mapStateToProps,mapDispatchToProps)(InventoryList);

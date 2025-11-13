@@ -1,8 +1,10 @@
 import Axios from "@/api/axios";
 class InventoryServices extends Axios {
 
-  public async getInventoryList<T=unknown>():Promise<T>{
-    const res = await this.get<T>("inventoryList");
+  public async getInventoryList<T=unknown>(data:unknown):Promise<T>{
+    const res = await this.get<T>("inventory/list", {
+      params:data
+    });
     return res.data;
   }
 

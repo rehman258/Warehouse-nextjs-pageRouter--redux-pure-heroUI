@@ -13,26 +13,35 @@ import {
   TableCell
 } from "@heroui/react";
 
-import { IInventoryList, IInventoryItem } from "@/types/domain/inventory";
-export default function InventoryTable({ inventoryList }:{inventoryList:IInventoryList}) {
+import { IInventoryItem, IPagination } from "@/types/domain/inventory";
+export default function InventoryTable({ 
+  inventoryList,
+  pagination,
+  paginationHandler,
+  pageSizeHandler,
+}:{
+  paginationHandler:(_val:number) => void, 
+  pageSizeHandler:(_val:unknown) => void,
+  inventoryList:IInventoryItem[],
+  pagination:IPagination
+}) {
 
   return (
     <Table 
       bottomContent={
         <div className="flex gap-6 justify-end mt-6">
-          <Tabs className="">
-            <Tab className="" title="1-5" value="1-5" />
-            <Tab className="" title="1-10" value="1-10" />
-            <Tab className="" title="1-20" value="1-20" />
+          <Tabs className="" onSelectionChange={pageSizeHandler}>
+            <Tab key={"5"} title="5" value="5" />
+            <Tab key={"10"} title="10" value="10"/>
+            <Tab key={"20"} title="20" value="20"/>
           </Tabs>
           <Pagination
             isCompact
             showControls
             showShadow
             color="primary"
-            page={1}
-            total={10}
-            // onChange={(page) => setPage(page)}
+            total={pagination.totalPages}
+            onChange={paginationHandler}
           />
         </div>
       }
