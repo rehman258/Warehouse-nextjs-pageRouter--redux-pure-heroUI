@@ -21,7 +21,7 @@ type PropsFromRedux = ConnectedProps<typeof connector> & {
 };
 
 function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
-
+  console.log(categoriesReducer);
   const [list,setList] = useState<IInventoryItem[] | undefined>();
   const [pagination,setPagination] = useState<IPagination>({} as IPagination);
   const [page,setPage] = useState<number>(1);
@@ -92,7 +92,7 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
           <Button
             className="font-medium"
             color="primary"
-            size="sm"
+            size="md"
             startContent={
               <Image
                 alt="plus icon"

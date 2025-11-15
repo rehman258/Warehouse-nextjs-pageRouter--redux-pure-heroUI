@@ -150,7 +150,6 @@ const server = http.createServer(async (req, res) => {
     else if (pathname === "/api/inventory/list" && req.method === "GET") {
       const page = parseInt(parsedUrl.query.page) || 1; // Default page 1
       const itemsPerPage = parseInt(parsedUrl.query.itemsPerPage) || 5;
-      console.log(page);
       console.log("Fetching inventory list...");
       const snapshot = await db.ref("inventoryList").once("value");
       const data = snapshot.val();
@@ -165,6 +164,8 @@ const server = http.createServer(async (req, res) => {
             itemsPerPage: itemsPerPage,
             totalItems: 0,
             totalPages: 0,
+            nextPage: 0,
+            prevPage: 0,
           }
         }));
         return;
@@ -176,7 +177,6 @@ const server = http.createServer(async (req, res) => {
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       
-      // Slice array for current page
       const paginatedData = data.slice(startIndex, endIndex);
       
       res.writeHead(200);
@@ -190,6 +190,8 @@ const server = http.createServer(async (req, res) => {
           totalPages: totalPages,
           hasNextPage: page < totalPages,
           hasPreviousPage: page > 1,
+          nextPage: totalPages >= page + 1 ? page + 1 : null,
+          prevPage: page - 1 > 0 ? page-1 : null,
         }
       }));
     }
