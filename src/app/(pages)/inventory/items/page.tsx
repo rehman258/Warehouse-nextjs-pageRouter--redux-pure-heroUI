@@ -108,7 +108,8 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
       </div>
       {
         list?.length &&  
-      <InventoryTable inventoryList= {list} 
+      <InventoryTable
+        inventoryList = {list} 
         pageSizeHandler={pageSizeHandler} 
         pagination={pagination} 
         paginationHandler={paginationHandler}/>

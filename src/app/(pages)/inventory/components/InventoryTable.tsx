@@ -25,7 +25,6 @@ export default function InventoryTable({
   inventoryList:IInventoryItem[],
   pagination:IPagination
 }) {
-
   return (
     <Table 
       bottomContent={
@@ -40,6 +39,7 @@ export default function InventoryTable({
             showControls
             showShadow
             color="primary"
+            page={pagination.currentPage}
             total={pagination.totalPages}
             onChange={paginationHandler}
           />

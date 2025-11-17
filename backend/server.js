@@ -148,11 +148,12 @@ const server = http.createServer(async (req, res) => {
     }
     // GET inventory list
     else if (pathname === "/api/inventory/list" && req.method === "GET") {
-      const page = parseInt(parsedUrl.query.page) || 1; // Default page 1
+      let page = parseInt(parsedUrl.query.page) || 1; // Default page 1
       const itemsPerPage = parseInt(parsedUrl.query.itemsPerPage) || 5;
       console.log("Fetching inventory list...");
       const snapshot = await db.ref("inventoryList").once("value");
-      const data = snapshot.val();
+      const data = [...snapshot.val(), 
+        ...snapshot.val().map((myItem)=> ({ ...myItem, id:Math.random()*999 }) )];
 
       if (!data) {
         res.writeHead(200);
@@ -172,12 +173,27 @@ const server = http.createServer(async (req, res) => {
       }
 
       // Calculate pagination
-      const totalItems = data.length;
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-      const startIndex = (page - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
       
+      const totalItems = data.length;
+      let totalPages = Math.ceil(totalItems / itemsPerPage);
+      let startIndex = (page - 1) * itemsPerPage;
+      // 12 / 10 = 2 + 1 
+      // console.log(totalItems / itemsPerPage + 1, page);
+      // console.log(itemsPerPage);
+      // console.log(currentPage);
+      if ((Math.floor(totalItems / itemsPerPage)) + 1 < page) {
+        const testCurr = Math.floor(totalItems / itemsPerPage);
+        // currentPage = testCurr+1;
+        startIndex = testCurr * itemsPerPage;
+      }
+      // console.log(startIndex);
+      const endIndex = startIndex + itemsPerPage;
+
       const paginatedData = data.slice(startIndex, endIndex);
+      // console.log();
+      // if ((page * itemsPerPage) - totalItems < 0) {
+      //   return;
+      // }
       
       res.writeHead(200);
       res.end(JSON.stringify({ 
