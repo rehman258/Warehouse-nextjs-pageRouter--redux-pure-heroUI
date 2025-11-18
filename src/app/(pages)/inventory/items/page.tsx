@@ -28,9 +28,11 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
   const [pageSize,setPageSize] = useState<number | unknown>(5);
   useEffect(()=>{
     (async()=>{
-      const res:IInventoryListType = await InventoryServices.getInventoryList<IInventoryListType>({
+      const res:IInventoryListType = await InventoryServices.getInventoryList<IInventoryListType>({},{        
         page,
         itemsPerPage:pageSize,
+        categoryIds:[1,2,3,5,7,8],
+        status:"lowStock",
       });
       console.log(res);
       setPagination(res.pagination);

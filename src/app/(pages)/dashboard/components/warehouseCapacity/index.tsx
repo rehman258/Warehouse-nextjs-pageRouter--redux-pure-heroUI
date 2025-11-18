@@ -10,7 +10,7 @@ export default function WarehouseCapacity() {
   useEffect(()=>{
     (async()=>{
       const res = await CapacityServices.getCapacityList<WarehouseCapacityList>();
-      setCapacityList(res);
+      setCapacityList([]);
     })();    
   },[]);
   return (

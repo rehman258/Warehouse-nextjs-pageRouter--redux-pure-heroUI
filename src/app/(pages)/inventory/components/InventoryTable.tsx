@@ -84,7 +84,7 @@ export default function InventoryTable({
                 {inventoryItem.productName}
               </TableCell>
               <TableCell>
-                {inventoryItem.category}
+                {inventoryItem.categoryName}
               </TableCell>
               <TableCell>
                 {inventoryItem.stock}

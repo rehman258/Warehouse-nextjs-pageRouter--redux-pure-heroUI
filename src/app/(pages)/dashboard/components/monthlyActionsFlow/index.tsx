@@ -67,8 +67,8 @@ export default function MonthlyActionsFlow() {
   useEffect(()=>{
     (async () => {
       const res = await MonthlyActionsFlowServices.getMonthlyActionsFlowList<IMonthlyActionsFlow>();
-      const months = res.months;
-      const series = res.series;
+      const months = [];
+      const series = [];
       setState({
         ...state,
         series,
