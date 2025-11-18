@@ -71,7 +71,7 @@ const server = http.createServer(async (req, res) => {
       console.log("Fetching categories...");
       const snapshot = await db.ref("categories").once("value");
       const data = snapshot.val();
-      console.log(data,"-----------");
+      // console.log(data,"-----------");
       
       res.writeHead(200);
       res.end(JSON.stringify({
@@ -147,69 +147,78 @@ const server = http.createServer(async (req, res) => {
       }));
     }
     // GET inventory list
-    else if (pathname === "/api/inventory/list" && req.method === "GET") {
-      let page = parseInt(parsedUrl.query.page) || 1; // Default page 1
-      const itemsPerPage = parseInt(parsedUrl.query.itemsPerPage) || 5;
-      console.log("Fetching inventory list...");
-      const snapshot = await db.ref("inventoryList").once("value");
-      const data = [...snapshot.val(), 
-        ...snapshot.val().map((myItem)=> ({ ...myItem, id:Math.random()*999 }) )];
+    else if (pathname === "/api/inventory/list" && req.method === "POST") {
+      let body = "";
+      req.on("data",(data)=>{
+        body = JSON.parse(data.toString("utf8")) || [];
+      });
+     
+      console.log(body,"-----------=");
+      req.on("end", async () => {
+        
+        const snapshot = await db.ref("inventoryList").once("value");
+        const dataList = snapshot.val();
+        let page = body.page; // Default page 1
+        let itemsPerPage = body.itemsPerPage;
+        // let filterStatus = "";
+        let filterCategoryIds = [];
+        let filteredData = [];
+        
+        filterCategoryIds = body.categoryIds || [];
+        filterStatus = body.status || "";
+        filteredData = dataList;
 
-      if (!data) {
+        if(filterCategoryIds.length){
+          filteredData = dataList.filter((item)=>filterCategoryIds.includes(item.categoryId)&& item);
+        }
+        // .filter((item)=> filterStatus ? item.status === filterStatus && item : item);
+        console.log(filteredData);
+        if (!dataList) {
+          res.writeHead(200);
+          res.end(JSON.stringify({ 
+            success: true,
+            data: [],
+            pagination: {
+              currentPage: page,
+              itemsPerPage: itemsPerPage,
+              totalItems: 0,
+              totalPages: 0,
+              nextPage: 0,
+              prevPage: 0,
+            }
+          }));
+          return;
+        }
+
+        // Calculate pagination
+        const totalItems = filteredData.length;
+        let totalPages = Math.ceil(totalItems / itemsPerPage);
+        let startIndex = (page - 1) * itemsPerPage;
+        if ((Math.floor(totalItems / itemsPerPage)) + 1 < page) {
+          const testCurr = Math.floor(totalItems / itemsPerPage);
+          startIndex = testCurr * itemsPerPage;
+          totalPages = Math.ceil(totalItems / itemsPerPage);
+        }
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedData = filteredData.slice(startIndex, endIndex);
+      
         res.writeHead(200);
         res.end(JSON.stringify({ 
           success: true,
-          data: [],
+          data: paginatedData,
           pagination: {
             currentPage: page,
             itemsPerPage: itemsPerPage,
-            totalItems: 0,
-            totalPages: 0,
-            nextPage: 0,
-            prevPage: 0,
+            totalItems: totalItems,
+            totalPages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPreviousPage: page > 1,
+            nextPage: totalPages >= page + 1 ? page + 1 : null,
+            prevPage: page - 1 > 0 ? page-1 : null,
           }
         }));
-        return;
-      }
-
-      // Calculate pagination
-      
-      const totalItems = data.length;
-      let totalPages = Math.ceil(totalItems / itemsPerPage);
-      let startIndex = (page - 1) * itemsPerPage;
-      // 12 / 10 = 2 + 1 
-      // console.log(totalItems / itemsPerPage + 1, page);
-      // console.log(itemsPerPage);
-      // console.log(currentPage);
-      if ((Math.floor(totalItems / itemsPerPage)) + 1 < page) {
-        const testCurr = Math.floor(totalItems / itemsPerPage);
-        // currentPage = testCurr+1;
-        startIndex = testCurr * itemsPerPage;
-      }
-      // console.log(startIndex);
-      const endIndex = startIndex + itemsPerPage;
-
-      const paginatedData = data.slice(startIndex, endIndex);
-      // console.log();
-      // if ((page * itemsPerPage) - totalItems < 0) {
-      //   return;
-      // }
-      
-      res.writeHead(200);
-      res.end(JSON.stringify({ 
-        success: true,
-        data: paginatedData,
-        pagination: {
-          currentPage: page,
-          itemsPerPage: itemsPerPage,
-          totalItems: totalItems,
-          totalPages: totalPages,
-          hasNextPage: page < totalPages,
-          hasPreviousPage: page > 1,
-          nextPage: totalPages >= page + 1 ? page + 1 : null,
-          prevPage: page - 1 > 0 ? page-1 : null,
-        }
-      }));
+      });
+     
     }
     
     // GET single inventory item by index
@@ -278,7 +287,7 @@ const server = http.createServer(async (req, res) => {
       
       const snapshot = await db.ref("subCategories").once("value");
       const allSubcategories = snapshot.val() || [];
-      console.log(allSubcategories);
+      // console.log(allSubcategories);
       // Filter subcategories by categoryId
       const filtered = allSubcategories.filter((sub) => sub.categoryId === categoryId);
       
