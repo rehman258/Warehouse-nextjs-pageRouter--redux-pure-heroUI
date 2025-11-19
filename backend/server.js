@@ -153,7 +153,6 @@ const server = http.createServer(async (req, res) => {
         body = JSON.parse(data.toString("utf8")) || [];
       });
      
-      console.log(body,"-----------=");
       req.on("end", async () => {
         
         const snapshot = await db.ref("inventoryList").once("value");
@@ -165,13 +164,15 @@ const server = http.createServer(async (req, res) => {
         let filteredData = [];
         
         filterCategoryIds = body.categoryIds || [];
-        filterStatus = body.status || "";
+        filterStatus = body.status || [];
         filteredData = dataList;
 
         if(filterCategoryIds.length){
           filteredData = dataList.filter((item)=>filterCategoryIds.includes(item.categoryId)&& item);
         }
-        // .filter((item)=> filterStatus ? item.status === filterStatus && item : item);
+        if(filterStatus.length){
+          filteredData = dataList.filter((item)=>filterStatus.includes(item.status) && item);
+        }
         console.log(filteredData);
         if (!dataList) {
           res.writeHead(200);

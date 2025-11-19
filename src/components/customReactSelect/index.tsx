@@ -7,7 +7,7 @@ interface CustomReactSelectProps<T> {
   options?: T[];
   getOptionValue?: (_option: T) => string;
   getOptionLabel?: (_option: T) => string;
-  onChange?: (_selected: T | null) => void;
+  onChange?: (_selected: T[] | null) => void;
   placeholder?: string;
   // ... other react-select props you need
 }
@@ -36,7 +36,7 @@ export default function CustomReactSelect<T>({
         })
       }}
       onChange={(newValue: unknown) => {
-        onChange?.(newValue as T | null);
+        onChange?.(newValue as T[] | null);
       }}
       onMenuClose={() => {}}
       onMenuOpen={() => {}} 

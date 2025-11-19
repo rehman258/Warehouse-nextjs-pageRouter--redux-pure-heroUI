@@ -26,19 +26,21 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
   const [pagination,setPagination] = useState<IPagination>({} as IPagination);
   const [page,setPage] = useState<number>(1);
   const [pageSize,setPageSize] = useState<number | unknown>(5);
+  const [categoriesFilterId,setCategoriesFilterId] = useState<number[] | []>([]);
+  const [statusesFilterId,setStatusesFilterId] = useState<string[] | []>([]);
   useEffect(()=>{
     (async()=>{
       const res:IInventoryListType = await InventoryServices.getInventoryList<IInventoryListType>({},{        
         page,
         itemsPerPage:pageSize,
-        categoryIds:[1,2,3,5,7,8],
-        status:"lowStock",
+        categoryIds:categoriesFilterId,
+        status:statusesFilterId,
       });
       console.log(res);
       setPagination(res.pagination);
       setList(res.data);
     })();
-  },[page, pageSize]);
+  },[page, pageSize,categoriesFilterId,statusesFilterId]);
 
   const paginationHandler=(val:number)=>{
     setPage(val);
@@ -47,6 +49,16 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
   const pageSizeHandler = (val:unknown)=>{
     console.log(val, "-===");
     setPageSize(val);
+  };
+
+  const categoryFilterHandler=(_selected:ICategoryItem[] | null)=>{
+    const tempIdArray = _selected?.map((sel)=>sel.id);
+    if(tempIdArray) setCategoriesFilterId(tempIdArray);
+  };
+
+  const statusFilterHandler=(_selected: IStatusItem[] | null)=>{
+    const tempStatusArray = _selected?.map((sel)=>sel.code);
+    if(tempStatusArray) setStatusesFilterId(tempStatusArray);
   };
 
   return (
@@ -80,6 +92,7 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
             getOptionValue={(option:ICategoryItem) => option.code}
             options={categoriesReducer.categories}
             placeholder="Select Categories"
+            onChange={categoryFilterHandler}
           />
           }
           {
@@ -89,6 +102,7 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
               getOptionValue={(option:IStatusItem) => option.code}
               options={statusesReducer.statuses}
               placeholder="Select Status"
+              onChange={statusFilterHandler}
             />
           }
           <Button
