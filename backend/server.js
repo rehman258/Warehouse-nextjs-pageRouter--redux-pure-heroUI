@@ -158,7 +158,7 @@ const server = http.createServer(async (req, res) => {
         const snapshot = await db.ref("inventoryList").once("value");
         const dataList = snapshot.val();
         let page = body.page; // Default page 1
-        let itemsPerPage = body.itemsPerPage;
+        let itemsPerPage = Number(body.itemsPerPage);
         // let filterStatus = "";
         let filterCategoryIds = [];
         let filteredData = [];
@@ -173,7 +173,6 @@ const server = http.createServer(async (req, res) => {
         if(filterStatus.length){
           filteredData = dataList.filter((item)=>filterStatus.includes(item.status) && item);
         }
-        console.log(filteredData);
         if (!dataList) {
           res.writeHead(200);
           res.end(JSON.stringify({ 
@@ -194,12 +193,15 @@ const server = http.createServer(async (req, res) => {
         // Calculate pagination
         const totalItems = filteredData.length;
         let totalPages = Math.ceil(totalItems / itemsPerPage);
-        let startIndex = (page - 1) * itemsPerPage;
-        if ((Math.floor(totalItems / itemsPerPage)) + 1 < page) {
-          const testCurr = Math.floor(totalItems / itemsPerPage);
-          startIndex = testCurr * itemsPerPage;
-          totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        if (page > totalPages && totalPages > 0) {  
+          page = totalPages;
         }
+        if (page < 1) {
+          page = 1; // Ensure minimum page is 1
+        }
+
+        let startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         const paginatedData = filteredData.slice(startIndex, endIndex);
       
