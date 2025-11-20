@@ -7,7 +7,7 @@ import {
   Button,
 } from "@heroui/react";
 import CustomReactSelect from "@/components/customReactSelect";
-import InventoryTable from "../components/InventoryTable";
+import CustomTableComponent from "@/components/common/table";
 // import inventoryJson from "@/aaaa/InventoryMock.json";
 import InventoryServices from "@/api/endpoints/inventory";
 import { connect, ConnectedProps } from "react-redux";
@@ -21,6 +21,15 @@ type PropsFromRedux = ConnectedProps<typeof connector> & {
 };
 
 function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
+
+  const tableKeys:{
+    headerKeys:string[];
+    bodyKeys: (keyof IInventoryItem)[];
+  } = {
+    headerKeys:["Sku", "Product Name", "Category", "Current Stock", "Location", "Price", "Status", "Actions"],
+    bodyKeys:["sku", "productName", "categoryName", "stock", "location", "price", "status"],
+  };
+
   console.log(categoriesReducer);
   const [list,setList] = useState<IInventoryItem[] | undefined>();
   const [pagination,setPagination] = useState<IPagination>({} as IPagination);
@@ -124,11 +133,12 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
       </div>
       {
         list?.length &&  
-      <InventoryTable
-        inventoryList = {list} 
+      <CustomTableComponent<IInventoryItem>
+        list = {list}
         pageSizeHandler={pageSizeHandler} 
         pagination={pagination} 
-        paginationHandler={paginationHandler}/>
+        paginationHandler={paginationHandler} 
+        tableKeys={tableKeys}/>
       }
     </div>
   );
