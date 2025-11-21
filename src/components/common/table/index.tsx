@@ -13,7 +13,7 @@ import {
   TableCell
 } from "@heroui/react";
 
-import { IPagination } from "@/types/domain/pagination";
+import { IPagination } from "@/types/models/pagination";
 export default function CustomTableComponent<T extends {id:number|string}>({ 
   list,
   pagination,
@@ -73,13 +73,25 @@ export default function CustomTableComponent<T extends {id:number|string}>({
             <TableRow key={item.id}>
               {
                 tableKeys.bodyKeys.map((bodyKeyItem:(keyof T), i)=>(
-                  <TableCell key={i}>
-                    {String(item[bodyKeyItem]) ?? ""} 
-                  </TableCell>
+                  bodyKeyItem === "status" ? 
+                    <TableCell 
+                      key={i} 
+                      className={` p-1 px-2 gap-1 font-bold text-[11px] flex rounded-lg justify-self-start
+                        ${item[bodyKeyItem] === "inStock" ? "bg-green-100 text-green-800" : 
+                        item[bodyKeyItem] === "lowStock" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-red-500 text-white"
+                        }  
+                    `}
+                    >
+                      {String(item[bodyKeyItem]) ?? ""}
+                    </TableCell>:
+                    <TableCell key={i}>
+                      {String(item[bodyKeyItem]) ?? ""}
+                    </TableCell>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 )) as any
               }
-              <TableCell key={"aaa"} className="text-center">
+              <TableCell key={"aaa"}>
                 <Button isIconOnly className="bg-transparent">
                   <Image
                     alt="table action icon"
