@@ -16,6 +16,7 @@ import { IPagination } from "@/types/models/pagination";
 import { ICategoryItem } from "@/types/domain/categories";
 import { IStatusItem } from "@/types/domain/statuses";
 import { RootState } from "@/store";
+import ViewModal from "@/components/common/modal/formModal/veiwModal";
 
 type PropsFromRedux = ConnectedProps<typeof connector> & { 
   params: Promise<{ id: string }> 
@@ -31,13 +32,13 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
     bodyKeys:["sku", "productName", "categoryName", "stock", "location", "price", "status"],
   };
 
-  console.log(categoriesReducer);
   const [list,setList] = useState<IInventoryItem[] | undefined>();
   const [pagination,setPagination] = useState<IPagination>({} as IPagination);
   const [page,setPage] = useState<number>(1);
   const [pageSize,setPageSize] = useState<number | unknown>(5);
   const [categoriesFilterId,setCategoriesFilterId] = useState<number[] | []>([]);
   const [statusesFilterId,setStatusesFilterId] = useState<string[] | []>([]);
+  const [isViewModalOpen,setIsViewModalOpen] = useState<boolean>(false);
   useEffect(()=>{
     (async()=>{
       const res:IInventoryListType = await InventoryServices.getInventoryList<IInventoryListType>({},{        
@@ -46,7 +47,6 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
         categoryIds:categoriesFilterId,
         status:statusesFilterId,
       });
-      console.log(res);
       setPagination(res.pagination);
       setList(res.data);
     })();
@@ -71,8 +71,37 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
     if(tempStatusArray) setStatusesFilterId(tempStatusArray);
   };
 
+  const viewInventoryItemHandler=(id:number)=>{
+    console.log(id);
+    setIsViewModalOpen(true);
+  };
+  const editInventoryItemHandler=(id:number)=>{
+    console.log(id);
+    // setIsViewModalOpen(true);
+  };
+  const deleteInventoryItemHandler=(id:number)=>{
+    console.log(id);
+    // setIsViewModalOpen(true);
+  };
+
+  const viewModalArr:[string,string][] = [
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+    ["Test heading", "testValue"],
+  ];
+
   return (
     <div>
+      <ViewModal closeModal={setIsViewModalOpen} details={viewModalArr} open={isViewModalOpen}/>
       <div className="inventory-header shadow bg-white p-5 mb-6 rounded-xl flex justify-between">
         <div className="w-[50%]">
           <Input
@@ -135,11 +164,19 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
       {
         list?.length &&  
       <CustomTableComponent<IInventoryItem>
-        list = {list}
+        actionsController={
+          {
+            viewHandler:viewInventoryItemHandler,
+            editHandler:editInventoryItemHandler,
+            deleteHandler:deleteInventoryItemHandler
+          }
+        }
+        list = {list} 
         pageSizeHandler={pageSizeHandler} 
-        pagination={pagination} 
+        pagination={pagination}
         paginationHandler={paginationHandler} 
-        tableKeys={tableKeys}/>
+        tableKeys={tableKeys}
+      />
       }
     </div>
   );

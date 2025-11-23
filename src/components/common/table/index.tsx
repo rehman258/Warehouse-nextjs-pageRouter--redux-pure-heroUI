@@ -14,17 +14,23 @@ import {
 } from "@heroui/react";
 
 import { IPagination } from "@/types/models/pagination";
-export default function CustomTableComponent<T extends {id:number|string}>({ 
+export default function CustomTableComponent<T extends {id:number}>({ 
   list,
   pagination,
   paginationHandler,
   pageSizeHandler,
   tableKeys,
+  actionsController,
 }:{
   paginationHandler:(_val:number) => void; 
   pageSizeHandler:(_val:unknown) => void;
   list:T[];
   pagination:IPagination;
+  actionsController?: {
+    viewHandler: (_id:number) => void,
+    editHandler: (_id:number) => void,
+    deleteHandler: (_id:number) => void,
+  },
   tableKeys:{
     headerKeys:string[];
     bodyKeys:(keyof T)[]
@@ -92,7 +98,9 @@ export default function CustomTableComponent<T extends {id:number|string}>({
                 )) as any
               }
               <TableCell key={"aaa"}>
-                <Button isIconOnly className="bg-transparent">
+                <Button isIconOnly className="bg-transparent"
+                  onPress={()=>actionsController?.viewHandler(item.id)}
+                >
                   <Image
                     alt="table action icon"
                     height={22}
@@ -100,7 +108,8 @@ export default function CustomTableComponent<T extends {id:number|string}>({
                     width={22}
                   />
                 </Button>
-                <Button isIconOnly className="bg-transparent">
+                <Button isIconOnly className="bg-transparent"
+                  onPress={()=>actionsController?.editHandler(item.id)}>
                   <Image
                     alt="table action icon"
                     height={22}
@@ -108,7 +117,8 @@ export default function CustomTableComponent<T extends {id:number|string}>({
                     width={22}
                   />
                 </Button>
-                <Button isIconOnly className="bg-transparent">
+                <Button isIconOnly className="bg-transparent"
+                  onPress={()=>actionsController?.deleteHandler(item.id)}>
                   <Image
                     alt="table action icon"
                     height={22}

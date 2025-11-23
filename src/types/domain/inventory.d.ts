@@ -5,7 +5,7 @@ export interface IInventoryListType {
   pagination:IPagination;
 };
 export interface IInventoryItem{
-  id:number|string;
+  id:number;
   sku:string;
   categoryName:string;
   productName:string;
