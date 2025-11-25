@@ -13,22 +13,30 @@ export default function ViewModal(
   }
 ) {
 
-  const selfCloseHandler=()=>{
+  const selfCloseHandler =(e:unknown)=>{
+    const { target } = e as MouseEvent; 
+    if(target instanceof HTMLElement){
+      if(
+        !target?.classList.contains("modal-dialog") &&
+        !target?.classList.contains("close-modal")
+      ) return;
+    }
     closeModal(false);
   };
 
   return (
     <dialog
-      className="bg-[#00000099] fixed h-[100%] w-[100%] z-[99] top-[0%]"
+      className="modal-dialog bg-[#00000099] fixed h-[100%] w-[100%] z-[99] top-[0%]"
       open={open}
+      onClick={selfCloseHandler}
     >
       <div className="absolute shadow bg-[#fff] left-[50%] transform translate-x-[-50%]
       top-[20%] min-w-[500px] p-[2rem] rounded-md">
-        <div className="view-area-header  flex items-center justify-between">
-          <span className="capitalize font-medium text-[1.125rem]">
+        <div className="modal-area-header mb-[2rem]  flex items-center justify-between">
+          <span className="capitalize font-medium text-[1.5rem]">
             {"view tictac inventory item"}
           </span>
-          <Button isIconOnly className="bg-transparent rounded-full" onPress={selfCloseHandler}>
+          <Button isIconOnly className="bg-transparent rounded-full close-modal" onPress={selfCloseHandler}>
             <Image
               alt={"close view modal icon"
 
@@ -39,7 +47,7 @@ export default function ViewModal(
             />
           </Button>
         </div>
-        <div className="view-area-content flex flex-wrap">
+        <div className="modal-area-content flex flex-wrap">
           {
             details.map((detail)=>(
               <div key={detail[0]} className="w-[25%] mb-[1rem]">
