@@ -1,6 +1,6 @@
 import { Button } from "@heroui/react";
 import Image from "next/image"; 
-
+import TestCreatedForm from "@/helpers/formCreator";
 export default function FormModal(
   { 
     open, 
@@ -50,10 +50,7 @@ export default function FormModal(
           </Button>
         </div>
         <div className="modal-area-content mb-[3rem] flex flex-wrap">
-          <form action="">
-            <input type="text" />
-            <input type="text" />
-          </form>
+          <TestCreatedForm/>
         </div>
         <div className="actions flex justify-end">
           {

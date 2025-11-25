@@ -98,7 +98,7 @@ function InventoryList({ categoriesReducer, statusesReducer }:PropsFromRedux) {
     ["Test heading", "testValue"],
     ["Test heading", "testValue"],
   ];
-
+  
   return (
     <div>
       <ViewModal closeModal={setIsViewModalOpen} details={viewModalArr} open={isViewModalOpen}/>
