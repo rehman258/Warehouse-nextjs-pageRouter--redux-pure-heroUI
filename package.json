@@ -1,37 +1,52 @@
 {
-  "name": "warehouse",
-  "version": "0.1.0",
+  "name": "wareflow-pro",
+  "version": "1.0.0",
   "private": true,
+  "description": "WareFlow Pro — a modern warehouse management dashboard built with Next.js 16, Redux Toolkit, HeroUI and ApexCharts.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@heroui/react": "^2.8.5",
+    "@hookform/resolvers": "^3.9.1",
+    "@reduxjs/toolkit": "^2.5.0",
     "apexcharts": "^5.3.5",
-    "axios": "^1.12.2",
-    "eslint-plugin-i18next": "^6.1.3",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
+    "lucide-react": "^0.468.0",
     "next": "16.0.0",
     "next-intl": "^4.4.0",
+    "next-themes": "^0.4.6",
     "react": "19.2.0",
     "react-apexcharts": "^1.8.0",
     "react-dom": "19.2.0",
+    "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
-    "react-select": "^5.10.2",
-    "redux": "^5.0.1",
-    "sass": "^1.93.2"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^3.0.5",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
+    "jsdom": "^25.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.0.5"
   }
 }

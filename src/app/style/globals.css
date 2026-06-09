@@ -1,12 +1,25 @@
 @import "tailwindcss";
 @plugin "../../../hero.ts";
-/* Note: You may need to change the path to fit your project structure */
 @source '../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
-body{
-  background-color: #fbfbfb !important;
+@layer base {
+  body {
+    background-color: hsl(var(--heroui-background));
+    color: hsl(var(--heroui-foreground));
+    -webkit-font-smoothing: antialiased;
+  }
 }
-.apexcharts-toolbar{
+
+/* Hide the default ApexCharts toolbar across the app. */
+.apexcharts-toolbar {
   display: none !important;
+}
+
+/* Theme-aware thin scrollbars on desktop. */
+@media (min-width: 768px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--heroui-default-300)) transparent;
+  }
 }

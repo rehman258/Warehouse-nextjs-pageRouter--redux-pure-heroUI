@@ -1,16 +1,23 @@
 "use client";
 
-import React from "react";
+import { HeroUIProvider } from "@heroui/react";
+import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from "next-intl";
-import { Provider } from "react-redux";
-import { store } from "@/store";
+import { useRouter } from "next/navigation";
+import type { ReactNode } from "react";
+import { StoreProvider } from "@/store/StoreProvider";
 
-export default function Providers({ children }:{children:React.ReactNode}) {
+export default function Providers({ children }: { children: ReactNode }) {
+  const router = useRouter();
   return (
     <NextIntlClientProvider locale="en">
-      <Provider store={store}>
-        {children}
-      </Provider>
+      <StoreProvider>
+        <HeroUIProvider navigate={router.push}>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </HeroUIProvider>
+      </StoreProvider>
     </NextIntlClientProvider>
   );
 }

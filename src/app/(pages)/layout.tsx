@@ -1,22 +1,14 @@
-"use client";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { Header } from "@/components/layout/Header";
 
-import React from "react";
-import Sidebar from "@/components/sidebar";
-import Header from "@/components/header";
-import useCommonServices from "@/hooks/useCommonServices";
-
-export default function DasboardLayout({ children }:{children:React.ReactNode}) {
-  useCommonServices();
-
+export default function PagesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Sidebar/>
-      <div className="w-[82.5%]">
-        <Header/>
-        <main className="p-6">
-          {children}
-        </main>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <Header />
+        <main className="flex-1 p-4 sm:p-6">{children}</main>
       </div>
-    </>
+    </div>
   );
 }
