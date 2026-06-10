@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import reducer, { addItem, deleteItem, updateItem } from "./inventorySlice";
-
-const initial = reducer(undefined, { type: "@@INIT" });
+import { makeStore } from "@/store";
+import { addItem, deleteItem, inventorySelectors, updateItem } from "./inventorySlice";
 
 const sampleValues = {
   sku: "SKU-TEST",
@@ -12,35 +11,46 @@ const sampleValues = {
   price: 19.99,
 };
 
-describe("inventorySlice", () => {
-  it("adds an item with a generated id and derived status", () => {
-    const next = reducer(initial, addItem(sampleValues));
-    expect(next.items.length).toBe(initial.items.length + 1);
-    const added = next.items[0];
-    expect(added.id).toBe(initial.items.reduce((m, it) => Math.max(m, it.id), 0) + 1);
-    expect(added.status).toBe("lowStock"); // stock 3 -> lowStock
-    expect(added.productName).toBe("Test Widget");
+describe("inventory slice (entity adapter)", () => {
+  it("seeds the catalogue", () => {
+    const store = makeStore();
+    expect(inventorySelectors.selectTotal(store.getState())).toBeGreaterThan(0);
   });
 
-  it("derives outOfStock / inStock from the stock value", () => {
-    const zero = reducer(initial, addItem({ ...sampleValues, stock: 0 }));
-    expect(zero.items[0].status).toBe("outOfStock");
-    const many = reducer(initial, addItem({ ...sampleValues, stock: 50 }));
-    expect(many.items[0].status).toBe("inStock");
+  it("adds an item with a generated id and derived status", () => {
+    const store = makeStore();
+    const before = inventorySelectors.selectTotal(store.getState());
+    store.dispatch(addItem(sampleValues));
+
+    const all = inventorySelectors.selectAll(store.getState());
+    expect(all.length).toBe(before + 1);
+    const added = all.find((i) => i.sku === "SKU-TEST")!;
+    expect(added.id).toBeGreaterThan(0);
+    expect(added.status).toBe("lowStock"); // stock 3 -> lowStock
+  });
+
+  it("derives out-of-stock / in-stock from the stock value", () => {
+    const store = makeStore();
+    store.dispatch(addItem({ ...sampleValues, sku: "SKU-ZERO", stock: 0 }));
+    store.dispatch(addItem({ ...sampleValues, sku: "SKU-MANY", stock: 50 }));
+    const all = inventorySelectors.selectAll(store.getState());
+    expect(all.find((i) => i.sku === "SKU-ZERO")!.status).toBe("outOfStock");
+    expect(all.find((i) => i.sku === "SKU-MANY")!.status).toBe("inStock");
   });
 
   it("updates an item and recomputes its status", () => {
-    const target = initial.items[0];
-    const next = reducer(initial, updateItem({ id: target.id, values: { ...sampleValues, stock: 0 } }));
-    const updated = next.items.find((it) => it.id === target.id)!;
+    const store = makeStore();
+    const target = inventorySelectors.selectAll(store.getState())[0]!;
+    store.dispatch(updateItem({ id: target.id, values: { ...sampleValues, stock: 0 } }));
+    const updated = inventorySelectors.selectById(store.getState(), target.id)!;
     expect(updated.productName).toBe("Test Widget");
     expect(updated.status).toBe("outOfStock");
   });
 
   it("deletes an item by id", () => {
-    const target = initial.items[0];
-    const next = reducer(initial, deleteItem(target.id));
-    expect(next.items.find((it) => it.id === target.id)).toBeUndefined();
-    expect(next.items.length).toBe(initial.items.length - 1);
+    const store = makeStore();
+    const target = inventorySelectors.selectAll(store.getState())[0]!;
+    store.dispatch(deleteItem(target.id));
+    expect(inventorySelectors.selectById(store.getState(), target.id)).toBeUndefined();
   });
 });

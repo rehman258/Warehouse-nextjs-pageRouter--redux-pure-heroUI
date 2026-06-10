@@ -8,7 +8,7 @@ function group(int: string): string {
 
 /** 12500 -> "$12,500.00"; 99.99 -> "$99.99". */
 export function formatCurrency(value: number): string {
-  const [int, dec] = Math.abs(value).toFixed(2).split(".");
+  const [int = "0", dec = "00"] = Math.abs(value).toFixed(2).split(".");
   return `${value < 0 ? "-" : ""}$${group(int)}.${dec}`;
 }
 

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Tabs, Tab } from "@heroui/react";
 import { useAppSelector } from "@/store/hooks";
+import { inventorySelectors } from "@/store/slices/inventorySlice";
 import { MONTHLY_FLOW, STOCK_INTERESTS } from "@/lib/seed";
 import { formatCurrency, formatNumber } from "@/lib/format";
 import { StatCard } from "@/components/ui/StatCard";
@@ -16,7 +17,7 @@ import type { StockInterest } from "@/lib/types";
 const FLOW_COLORS = ["#3b82f6", "#f59e0b"];
 
 export default function ReportsPage() {
-  const inventory = useAppSelector((s) => s.inventory.items);
+  const inventory = useAppSelector(inventorySelectors.selectAll);
   const orders = useAppSelector((s) => s.orders.items);
   const [selected, setSelected] = useState<string>("overview");
 

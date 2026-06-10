@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppSelector } from "@/store/hooks";
-import { computeMetrics } from "@/lib/metrics";
+import { selectDashboardMetrics } from "@/store/selectors";
 import { ACTIVITIES, CAPACITY_ZONES, MONTHLY_FLOW, STOCK_INTERESTS } from "@/lib/seed";
 import { formatCurrency, formatNumber } from "@/lib/format";
 import { StatCard } from "@/components/ui/StatCard";
@@ -12,9 +12,7 @@ import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
 
 export default function DashboardPage() {
-  const inventory = useAppSelector((s) => s.inventory.items);
-  const orders = useAppSelector((s) => s.orders.items);
-  const m = computeMetrics(inventory, orders);
+  const m = useAppSelector(selectDashboardMetrics);
 
   const stats = [
     { label: "Total SKUs", value: formatNumber(m.totalSkus), icon: "Boxes", iconBg: "bg-blue-100 text-blue-600", delta: 4 },

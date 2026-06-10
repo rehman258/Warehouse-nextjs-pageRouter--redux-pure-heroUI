@@ -3,7 +3,8 @@ import type { InventoryState } from "./slices/inventorySlice";
 import type { OrdersState } from "./slices/ordersSlice";
 import type { UiState } from "./slices/uiSlice";
 
-const KEY = "wareflow:state";
+// Bumped to v2 when inventory moved to a normalised (entity-adapter) shape.
+const KEY = "wareflow:state:v2";
 
 export interface PersistedState {
   inventory?: InventoryState;

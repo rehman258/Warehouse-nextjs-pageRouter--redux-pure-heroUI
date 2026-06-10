@@ -25,7 +25,7 @@ const TITLES: Record<string, string> = {
 
 function pageTitle(pathname: string): string {
   const key = Object.keys(TITLES).find((k) => pathname.startsWith(k));
-  return key ? TITLES[key] : "WareFlow Pro";
+  return (key && TITLES[key]) || "WareFlow Pro";
 }
 
 export function Header() {

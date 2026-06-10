@@ -6,7 +6,7 @@ import {
 import { Eye, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { deleteItem } from "@/store/slices/inventorySlice";
+import { deleteItem, inventorySelectors } from "@/store/slices/inventorySlice";
 import { queryInventory } from "@/lib/queries";
 import { formatCurrency, formatNumber } from "@/lib/format";
 import type { InventoryItem, StockStatus } from "@/lib/types";
@@ -18,7 +18,7 @@ import { InventoryViewModal } from "./InventoryViewModal";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 export function InventoryView({ initialSearch }: { initialSearch: string }) {
-  const items = useAppSelector((s) => s.inventory.items);
+  const items = useAppSelector(inventorySelectors.selectAll);
   const categories = useAppSelector((s) => s.reference.categories);
   const statuses = useAppSelector((s) => s.reference.statuses);
   const dispatch = useAppDispatch();
